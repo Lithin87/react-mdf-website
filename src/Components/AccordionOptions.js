@@ -40,7 +40,7 @@ function AccordionOptions() {
 
 
   return (
-    <Accordion defaultActiveKey="0">
+    <Accordion defaultActiveKey={null}>
       <Accordion.Item eventKey="0">
         <Accordion.Header>Generate from SCHEMA</Accordion.Header>
         <Accordion.Body>
