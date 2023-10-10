@@ -1,25 +1,19 @@
-import logo from './logo.svg';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import PanelContent from './Components/PanelContent';
+import MenuBar from './Components/MenuBar';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <nav> <h1>Mimic Data Framework</h1></nav>
+            <MenuBar/>
+            <PanelContent/>
+            <footer> © 2023 My Website </footer>
+        </div>
+    );
 }
 
 export default App;
