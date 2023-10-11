@@ -17,7 +17,7 @@ function MenuBar(props) {
                     </li>
 
                     <li class="nav-item">
-                        <OffcanvasVM />
+                        <OffcanvasVM >VM Operations</OffcanvasVM>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="http://www.google.com" tabindex="-1" aria-disabled="true">NOT RUNNING</a>

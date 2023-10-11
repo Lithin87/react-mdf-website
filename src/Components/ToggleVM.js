@@ -1,7 +1,9 @@
-
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import bootOn from '../images/power-button.png';
+import { Image } from 'react-bootstrap';
+
 
 function ToggleVM( {now, checked, setChecked, radioValue, setRadioValue }) {
 
@@ -24,8 +26,7 @@ function ToggleVM( {now, checked, setChecked, radioValue, setRadioValue }) {
         value="1"
         onChange={(e) => setChecked(e.currentTarget.checked)}
       >
-        BOOT ON
-      </ToggleButton>
+        <Image src={bootOn} width="50" height="40" alt="Small Image" rounded thumbnail /> BOOT ON </ToggleButton>
 
       <br/><br/>
 
@@ -45,8 +46,7 @@ function ToggleVM( {now, checked, setChecked, radioValue, setRadioValue }) {
             {radio.name}
           </ToggleButton>
         ))}
-      </ButtonGroup>
-
+      </ButtonGroup><p/>
       <ProgressBar animated now={now} label={`${Math.round(now)}%`} />
     </>
   );

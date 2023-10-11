@@ -1,18 +1,18 @@
 import Accordion from 'react-bootstrap/Accordion';
 import Form from 'react-bootstrap/Form';
-import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
 
 function FileInputExample({ onFileUpload ,id }) {
 
     const handleFileChange = (event) => {
-        const selectedFile = event.target.files[0]; // Get the first selected file
+        const selectedFile = event.target.files[0]; 
         if (selectedFile) {
-          // Read the file content
+          
           const reader = new FileReader();
     
           reader.onload = (e) => {
             const fileContent = e.target.result;
-            onFileUpload(fileContent); // Pass the file content to a callback function
+            onFileUpload(fileContent); 
           };
     
           reader.readAsText(selectedFile); // You can use other methods like readAsDataURL for images
@@ -22,7 +22,7 @@ function FileInputExample({ onFileUpload ,id }) {
     return (
       <Form>
         <Form.Group controlId={id} className="mb-3">
-          <Form.Label>Choose a File</Form.Label>
+          <Form.Label style={{ color: 'blue' }}>Choose a File</Form.Label>
           <Form.Control type="file" onChange={handleFileChange} />
         </Form.Group>
       </Form>
@@ -30,34 +30,33 @@ function FileInputExample({ onFileUpload ,id }) {
   }
 
 
-function AccordionOptions() {
+function AccordionOptions(props) {
 
-    const [fileContent, setFileContent] = useState('');
-
-  const handleFileUpload = (content) => {
-    setFileContent(content);
-  };
+  const handleClick = () => {
+    if(props.state === "")
+    alert("Pls select the file")
+    else
+  {
+    alert(props.state);
+  }
+   }
 
 
   return (
-    <Accordion defaultActiveKey={null}>
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Generate from SCHEMA</Accordion.Header>
+    <Accordion >
+      <Accordion.Item eventKey={props.eventKey}>
+        <Accordion.Header>{props.children}</Accordion.Header>
         <Accordion.Body>
-        <FileInputExample id="as" onFileUpload={handleFileUpload} />
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+  <FileInputExample id={props.eventKey} onFileUpload={c => props.setState(c)} />
+  <Button variant="primary" style={{ marginLeft: '70px', marginTop: '15px' }} onClick={handleClick}>
+    SUBMIT
+  </Button>
+</div>
+
         <div>
-        <h2>Uploaded File Content:</h2>
-        <pre>{fileContent}</pre>
-      </div>
-        </Accordion.Body>
-      </Accordion.Item>
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>Generate from JSON</Accordion.Header>
-        <Accordion.Body>
-         <FileInputExample id="as1" onFileUpload={handleFileUpload} />
-         <div>
-        <h2>Uploaded File Content:</h2>
-        <pre>{fileContent}</pre>
+        <h8 style={{ color: 'blue' }}>Uploaded File Content:</h8>
+        <pre>{props.state}</pre>
       </div>
         </Accordion.Body>
       </Accordion.Item>

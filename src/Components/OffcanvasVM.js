@@ -3,7 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ToggleVM from './ToggleVM';
 
-function OffcanvasVM() {
+
+
+function OffcanvasVM(props) {
   const [show, setShow] = useState(false);
   const [now, setNow] = useState(0);
   const [checked, setChecked] = useState(false);
@@ -33,16 +35,26 @@ function OffcanvasVM() {
     };
   }, [totalDuration]);
 
+const sty = {
+  color: 'blue',
+  textAlign: 'center',
+  border: '2px solid blue',
+  padding: '8px',
+  display: 'block', 
+  width: '100%',    
+  backgroundColor: 'hwb(218 24% 29% / 0.547)'
+};
+
 
   return (
     <>
       <Button  variant="info" onClick={handleShow}>
-        VM Operations
+         {props.children}
       </Button>
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title text ='green'>KAFKA VM</Offcanvas.Title>
+          <Offcanvas.Title style={sty}>KAFKA VM</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
          <ToggleVM {...{ now, checked, setChecked, radioValue, setRadioValue }} />

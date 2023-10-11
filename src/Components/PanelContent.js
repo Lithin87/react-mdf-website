@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState } from 'react';
 import './PanelContent.css';
 import AccordionOptions from './AccordionOptions';
 
@@ -13,18 +13,27 @@ function Panel(props) {
 }
 
 function PanelContent(props) {
+
+     const [fileContent0, setFileContent0] = useState('');
+     const [fileContent1, setFileContent1] = useState('');
+     const [fileContent2, setFileContent2] = useState('');
+     const [fileContent3, setFileContent3] = useState('');
+
+
+
     return (
         <>
             <Panel header="GENERATE DATA">
-                <AccordionOptions />
+                <AccordionOptions  eventKey="0" state={fileContent0}  setState= {setFileContent0} >Generate from SCHEMA</AccordionOptions>
+                <AccordionOptions  eventKey="1" state={fileContent1}  setState= {setFileContent1} >Generate from JSON</AccordionOptions>
             </Panel>
 
             <Panel header="DEFINE CONFIG SETTINGS">
-                Learn more about our website here.
+            <AccordionOptions  eventKey="2" state={fileContent2}  setState= {setFileContent2} >Generate from Connector Configuration</AccordionOptions>
             </Panel>
 
             <Panel header="CHAT GPT AUTOMATION">
-                Get in touch with us!
+            <AccordionOptions  eventKey="3" state={fileContent3}  setState= {setFileContent3} >Ask questions from AI</AccordionOptions>
             </Panel>
         </>
     );
