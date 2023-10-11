@@ -3,7 +3,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import bootOn from '../images/power-button.png';
 import { Image } from 'react-bootstrap';
-
+import Axios from 'axios';
 
 function ToggleVM( {now, checked, setChecked, radioValue, setRadioValue }) {
 
@@ -13,7 +13,24 @@ function ToggleVM( {now, checked, setChecked, radioValue, setRadioValue }) {
      { name: 'READY', value: '3' },
   ];
 
+  const handleClickToggleButton = async (e) => {
+    setChecked(e.currentTarget.checked);
+  
+    const result = e.currentTarget.checked === true ? 1 : 6;
+    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ result;
+     let response = "";
+     response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
+     if(response !== "")
+     { setRadioValue(result === 6 ? "1" : "2");
+      const formattedJSON = JSON.stringify(response.data, null, 2); 
+      console.log(formattedJSON);
+     alert(formattedJSON);}
+   };
 
+   if (now >= 100) {
+    setRadioValue("3");
+  }
+ 
   return (
     <>
       <br />
@@ -24,7 +41,7 @@ function ToggleVM( {now, checked, setChecked, radioValue, setRadioValue }) {
         variant="outline-primary"
         checked={checked}
         value="1"
-        onChange={(e) => setChecked(e.currentTarget.checked)}
+        onChange={handleClickToggleButton}
       >
         <Image src={bootOn} width="50" height="40" alt="Small Image" rounded thumbnail /> BOOT ON </ToggleButton>
 
@@ -42,7 +59,7 @@ function ToggleVM( {now, checked, setChecked, radioValue, setRadioValue }) {
             name="radio"
             value={radio.value}
             checked={radioValue === radio.value}
-            onChange={(e) => setRadioValue(e.currentTarget.value)}>
+            >
             {radio.name}
           </ToggleButton>
         ))}

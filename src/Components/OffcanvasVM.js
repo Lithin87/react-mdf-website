@@ -2,21 +2,34 @@ import { useState , useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ToggleVM from './ToggleVM';
-
+import Axios from 'axios';
 
 
 function OffcanvasVM(props) {
-  const [show, setShow] = useState(false);
   const [now, setNow] = useState(0);
+  const [show, setShow] = useState(false);
+  const [data, setData] = useState("");
   const [checked, setChecked] = useState(false);
   const [radioValue, setRadioValue] = useState('1');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+    
+  
+  useEffect(() => {
     const totalDuration = 3 * 60 * 1000;
 
-  useEffect(() => {
+    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
+
+
+      Axios.get(url_r).then(response => {if(response.data === "") setData("OFF"); else {setData(response.data);  setRadioValue("2") ; setChecked(true)   } })
+        .catch(error => {
+          console.error('IP Address fetch went wrong!', error);
+        });
+     
+// if(checked === true) 
+// {
     let startTime = Date.now();
     const interval = setInterval(() => {
       const elapsedTime = Date.now() - startTime;
@@ -33,7 +46,9 @@ function OffcanvasVM(props) {
     return () => {
       clearInterval(interval);
     };
-  }, [totalDuration]);
+  // }
+
+  }, [radioValue]);
 
 const sty = {
   color: 'blue',
@@ -54,7 +69,8 @@ const sty = {
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title style={sty}>KAFKA VM</Offcanvas.Title>
+          <Offcanvas.Title style={sty}>KAFKA VM <p><a href={data} target="_blank" rel="noopener noreferrer">{data}</a></p></Offcanvas.Title>
+          
         </Offcanvas.Header>
         <Offcanvas.Body>
          <ToggleVM {...{ now, checked, setChecked, radioValue, setRadioValue }} />
