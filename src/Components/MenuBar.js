@@ -2,6 +2,9 @@ import OffcanvasVM from './OffcanvasVM';
 import { Image } from 'react-bootstrap';
 import brand4 from '../images/brand4.png';
 
+import AuthContext from '../Contexts/app-context';
+import { useContext } from 'react';
+
 
 function MenuBar(props) {
     return (

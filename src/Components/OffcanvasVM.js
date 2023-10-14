@@ -1,79 +1,49 @@
-import { useState , useEffect} from 'react';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import {  useEffect , useContext} from 'react';
+
+import { Button , Offcanvas } from 'react-bootstrap';
 import ToggleVM from './ToggleVM';
-import Axios from 'axios';
+import AuthContext from '../Contexts/app-context';
 
 
-function OffcanvasVM(props) {
-  const [now, setNow] = useState(0);
-  const [show, setShow] = useState(false);
-  const [data, setData] = useState("");
-  const [checked, setChecked] = useState(false);
-  const [radioValue, setRadioValue] = useState('1');
+function OffcanvasVM({children}) {
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-    
+  const ctx = useContext(AuthContext);
+  
+  const handleClose = () => ctx.setShow(false);
+  const handleShow = () => ctx.setShow(true);
   
   useEffect(() => {
-    const totalDuration = 3 * 60 * 1000;
+    const totalDuration = 3 * 2 * 1000;
 
-    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
-
-
-      Axios.get(url_r).then(response => {if(response.data === "") setData("OFF"); else {setData(response.data);  setRadioValue("2") ; setChecked(true)   } })
-        .catch(error => {
-          console.error('IP Address fetch went wrong!', error);
-        });
-     
-// if(checked === true) 
-// {
     let startTime = Date.now();
     const interval = setInterval(() => {
       const elapsedTime = Date.now() - startTime;
       if (elapsedTime >= totalDuration) {
         clearInterval(interval);
-        setNow(100);
+        ctx.setNow(100);
       } else {
         const progress = (elapsedTime / totalDuration) * 100;
-        setNow(progress);
+        ctx.setNow(progress);
       }
     }, 500);
 
-    // Clean up the interval when the component unmounts
     return () => {
       clearInterval(interval);
     };
-  // }
-
-  }, [radioValue]);
-
-const sty = {
-  color: 'blue',
-  textAlign: 'center',
-  border: '2px solid blue',
-  padding: '8px',
-  display: 'block', 
-  width: '100%',    
-  backgroundColor: 'hwb(218 24% 29% / 0.547)'
-};
-
+  }, [ctx.checked]);
 
   return (
     <>
       <Button  variant="info" onClick={handleShow}>
-         {props.children}
+         {children}
       </Button>
 
-      <Offcanvas show={show} onHide={handleClose}>
+      <Offcanvas show={ctx.show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title style={sty}>KAFKA VM <p><a href={data} target="_blank" rel="noopener noreferrer">{data}</a></p></Offcanvas.Title>
-          
+          <Offcanvas.Title className="offcanvas-title">KAFKA VM <p><a href={ctx.data} target="_blank" rel="noopener noreferrer">{ctx.data}</a></p></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-         <ToggleVM {...{ now, checked, setChecked, radioValue, setRadioValue }} />
+         <ToggleVM />
         </Offcanvas.Body>
       </Offcanvas>
     </>

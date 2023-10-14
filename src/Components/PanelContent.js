@@ -1,5 +1,4 @@
 import React , { useState } from 'react';
-import './PanelContent.css';
 import AccordionOptions from './AccordionOptions';
 
 function Panel(props) {
