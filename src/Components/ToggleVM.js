@@ -11,13 +11,13 @@ function ToggleVM() {
   const ctx = useContext(AuthContext);
   const [connect, setConnect] = useState([]);
 
-  const handleShow = async () => { 
-      ctx.setNow(0); // Reset count to 0
-      ctx.setData(''); // Reset text to an empty string
-      ctx.setChecked(false); // Reset text to an empty string
-      ctx.setRadioValue('1'); // Reset text to an empty string
+  const handleReset = async () => { 
+      ctx.setNow(0); 
+      ctx.setVmstatus(''); 
+      ctx.setChecked(false); 
+      ctx.setRadioValue('1'); 
       const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
-      await Axios.get(url_r).then(response => {if(response.data === "") ctx.setData("OFF"); else {ctx.setData(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
+      await Axios.get(url_r).then(response => {if(response.data === "") ctx.setVmstatus("OFF"); else {ctx.setVmstatus(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
        .catch(error => {
          console.error('IP Address fetch went wrong!', error);
        });
@@ -39,7 +39,7 @@ function ToggleVM() {
      if(response !== "")
      {  ctx.setRadioValue(on_off === 6 ? "1" : "2");
      const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
-     await Axios.get(url_r).then(response => {if(response.data === "") {ctx.setData("OFF"); setConnect([]); } else {ctx.setData(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
+     await Axios.get(url_r).then(response => {if(response.data === "") {ctx.setVmstatus("OFF"); setConnect([]); } else {ctx.setVmstatus(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
       .catch(error => {
         console.error('IP Address fetch went wrong!', error);
       });
@@ -48,34 +48,39 @@ function ToggleVM() {
 
    
    useEffect(() => {
-    if ( ctx.data.includes("OFF") === false && ctx.now >= 90 && connect.length === 0) {
+    if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && ctx.now >= 90 && connect.length === 0) {
       const fetchData = async () => {
         try {
           const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/2';
           let response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
           if(response !== undefined )
           { 
-            console.dir(response.data , {depth: null })
-            // alert("plugins"+response.data);
-            ctx.setRadioValue("3");
-            ctx.now = 100;
-            const formattedJSON =  response.data.message.filter(item => !item.class.includes("Mirror")).map(item => { const p = item.class.split('.'); return p[p.length - 1]; });
-            setConnect(formattedJSON);
-            clearInterval(interval); 
-            console.log(formattedJSON);
+            if (Array.isArray(response.data.message)) {
+              const formattedJSON =  response.data.message.filter(item => !item.class.includes("Mirror")).map(item => { const p = item.class.split('.'); return p[p.length - 1]; });
+              setConnect(formattedJSON);
+              clearInterval(interval); 
+              ctx.setRadioValue("3");
+              ctx.now = 100;
+              console.dir(formattedJSON, {depth :null});
+            } 
           }     
         } catch (error) {
           console.error('API error:', error);
         }
       };
       const interval = setInterval(fetchData, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+    
     }
-  }, );
+  }, [ctx]);
 
 
   return (
     <>
-      <Button class="nav-link" variant="info" onClick={handleShow}> RESET</Button>
+      <Button class="nav-link" variant="info" onClick={handleReset}> RESET</Button>
       <br /> <br /> <br /> <br />
       <ToggleButton
         className="mb-2"

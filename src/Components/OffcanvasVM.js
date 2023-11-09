@@ -40,7 +40,7 @@ function OffcanvasVM({children}) {
 
       <Offcanvas show={ctx.show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title className="offcanvas-title">KAFKA VM <p><a href={ctx.data} target="_blank" rel="noopener noreferrer">{ctx.data}</a></p></Offcanvas.Title>
+          <Offcanvas.Title className="offcanvas-title">KAFKA VM <p><a href={ctx.vmstatus} target="_blank" rel="noopener noreferrer">{ctx.vmstatus}</a></p></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
          <ToggleVM />

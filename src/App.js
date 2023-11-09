@@ -10,7 +10,7 @@ function App() {
 
     const [now, setNow] = useState(0);
     const [show, setShow] = useState(false);
-    const [data, setData] = useState("");
+    const [vmstatus, setVmstatus] = useState("");
     const [checked, setChecked] = useState(false);
     const [radioValue, setRadioValue] = useState('1');
 
@@ -19,8 +19,8 @@ function App() {
         setNow,
         show,
         setShow,
-        data,
-        setData,
+        vmstatus,
+        setVmstatus,
         checked,
         setChecked,
         radioValue,
