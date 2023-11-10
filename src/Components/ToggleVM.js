@@ -48,7 +48,7 @@ function ToggleVM() {
 
    
    useEffect(() => {
-    if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && ctx.now >= 90 && connect.length === 0) {
+    if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && connect.length === 0) {
       const fetchData = async () => {
         try {
           const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/2';
