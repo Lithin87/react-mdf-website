@@ -1,6 +1,7 @@
 import { Form , Button , Accordion, Toast } from 'react-bootstrap';
 import Axios from 'axios';
 
+
 function FileInputExample({ onFileUpload ,id }) {
 
     const handleFileChange = (event) => {
@@ -32,18 +33,16 @@ function FileInputExample({ onFileUpload ,id }) {
 function AccordionOptions(props) {
 
   const handleClick = async () => {
-    if(props.state === "")
-    alert("Pls select the file")
-    else
-  {
+    let schema = {};
+    if(props.state === "") alert("NO file selected. Using Pre-Configured Data"); else schema = props.state;
+    console.log(schema);
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ props.eventKey;
     let response = "";
-    response =  await Axios.post(url_r, props.state ).catch((error) => {console.log("Error accessing backend"+error); });
+    response =  await Axios.post(url_r, schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
     if(response !== "")
     {  
-      alert(JSON.stringify(response));
+      alert(JSON.stringify(response.data));
     }
-  }
    }
 
 
@@ -57,6 +56,7 @@ function AccordionOptions(props) {
   <Button variant="primary" style={{ marginLeft: '70px', marginTop: '15px' }} onClick={handleClick}>
     SUBMIT
   </Button>
+  {/* <pre style={{ marginLeft: '70px', marginTop: '15px' }}>{props.state}</pre> */}
 </div>
 
         <div>

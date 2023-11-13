@@ -1,9 +1,13 @@
 import OffcanvasVM from './OffcanvasVM';
 import { Image } from 'react-bootstrap';
 import brand4 from '../images/brand4.png';
-
+import AuthContext from '../Contexts/app-context';
+import { useContext} from 'react';
 
 function MenuBar(props) {
+    const ctx = useContext(AuthContext);
+
+
     return (
         <><nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="http://www.google.com"> <Image src={brand4} width="70" height="70" alt="Small Image" rounded thumbnail /></a>
@@ -20,7 +24,7 @@ function MenuBar(props) {
                         <OffcanvasVM >VM Operations</OffcanvasVM>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="http://www.google.com" tabindex="-1" aria-disabled="true">NOT RUNNING</a>
+                        <a class="nav-link disabled" href="http://www.google.com" tabindex="-1" aria-disabled="true" style={{color: "blue"}}>SERVER {ctx.radioValue === "3" ? "ON" : "OFF"}</a>
                     </li>
                 </ul>
             </div>

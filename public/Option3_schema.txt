@@ -1,0 +1,49 @@
+  { "schema" : 
+   
+{
+  "connect.name": "ust.boots",
+  "fields": [
+    {
+      "name": "boots_id",
+      "type": "int"
+    },
+    {
+      "name": "delhi_lines",
+      "type": {
+        "items": {
+          "connect.name": "lithin.personal.order_line",
+          "fields": [
+            {
+              "name": "product_id",
+              "type": "int"
+            },
+            {
+              "name": "category",
+              "type": "string"
+            },
+            {
+              "name": "quantity",
+              "type": "int"
+            },
+            {
+              "name": "unit_price",
+              "type": "float"
+            },
+            {
+              "name": "net_price",
+              "type": "float"
+            }
+          ],
+          "name": "order_line",
+          "type": "record"
+        },
+        "type": "array"
+      }
+    }
+  ],
+  "name": "boots",
+  "namespace": "ust",
+  "type": "record"
+}
+
+}

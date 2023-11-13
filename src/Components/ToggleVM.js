@@ -23,27 +23,36 @@ function ToggleVM() {
        });
     }
 
+    const handleDeleteConnectors = async () => { 
+      const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/8';
+      let response = "";
+      response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
+      if(response !== "")
+      {  
+        alert(JSON.stringify(response.data));
+      }
+      }
+
   const radios = [
       { name: 'OFF', value: '1' },
       { name: 'ON', value: '2' },
      { name: 'READY', value: '3' },
   ];
 
-    const handleClickToggleButton = async (e) => { 
-    ctx.setChecked(e.currentTarget.checked);
-
-    const on_off = e.currentTarget.checked === true ? 1 : 6;
-    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ on_off;
-     let response = "";
-     response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
-     if(response !== "")
-     {  ctx.setRadioValue(on_off === 6 ? "1" : "2");
-     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
-     await Axios.get(url_r).then(response => {if(response.data === "") {ctx.setVmstatus("OFF"); ctx.setConnect([]); } else {ctx.setVmstatus(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
-      .catch(error => {
-        console.error('IP Address fetch went wrong!', error);
-      });
-     alert(on_off);}
+  const handleClickToggleButton = async (e) => { 
+      ctx.setChecked(e.currentTarget.checked);
+      const on_off = e.currentTarget.checked === true ? 1 : 6;
+      const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ on_off;
+      let response = "";
+      response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
+      if(response !== "")
+      {  ctx.setRadioValue(on_off === 6 ? "1" : "2");
+      const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
+      await Axios.get(url_r).then(response => {if(response.data === "") {ctx.setVmstatus("OFF"); ctx.setConnect([]); } else {ctx.setVmstatus(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
+        .catch(error => {
+          console.error('IP Address fetch went wrong!', error);
+        });
+      alert(on_off);}
    };
 
    
@@ -124,6 +133,10 @@ function ToggleVM() {
         <ListGroup.Item key={index} className="bg-light">{item}</ListGroup.Item>
       ))}
     </ListGroup>
+
+    <br /> <br /> <br /> <br />
+    <Button class="nav-link" variant="danger" onClick={handleDeleteConnectors}> DELETE CONNECTORS</Button>
+    {/* <Button class="nav-link" variant="danger" onClick={handleDeleteTopics}> DELETE TOPICS</Button> */}
 
     </>
   );

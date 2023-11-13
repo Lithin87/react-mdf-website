@@ -32,7 +32,7 @@ function PanelContent(props) {
             </Panel>
 
             <Panel header="CHAT GPT AUTOMATION">
-            <AccordionOptions  eventKey="11" state={fileContent3}  setState= {setFileContent3} >Ask questions from AI</AccordionOptions>
+            <AccordionOptions  eventKey="9" state={fileContent3}  setState= {setFileContent3} >Ask questions from AI</AccordionOptions>
             </Panel>
         </>
     );
