@@ -9,7 +9,6 @@ import AuthContext from '../Contexts/app-context';
 function ToggleVM() {
 
   const ctx = useContext(AuthContext);
-  const [connect, setConnect] = useState([]);
 
   const handleReset = async () => { 
       ctx.setNow(0); 
@@ -17,7 +16,8 @@ function ToggleVM() {
       ctx.setChecked(false); 
       ctx.setRadioValue('1'); 
       const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
-      await Axios.get(url_r).then(response => {if(response.data === "") ctx.setVmstatus("OFF"); else {ctx.setVmstatus(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
+      await Axios.get(url_r).then(response => {if(response.data === "") ctx.setVmstatus("OFF"); else {ctx.setVmstatus(response.data);
+          ctx.setRadioValue("2") ; ctx.setChecked(true);  } })
        .catch(error => {
          console.error('IP Address fetch went wrong!', error);
        });
@@ -39,7 +39,7 @@ function ToggleVM() {
      if(response !== "")
      {  ctx.setRadioValue(on_off === 6 ? "1" : "2");
      const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
-     await Axios.get(url_r).then(response => {if(response.data === "") {ctx.setVmstatus("OFF"); setConnect([]); } else {ctx.setVmstatus(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
+     await Axios.get(url_r).then(response => {if(response.data === "") {ctx.setVmstatus("OFF"); ctx.setConnect([]); } else {ctx.setVmstatus(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
       .catch(error => {
         console.error('IP Address fetch went wrong!', error);
       });
@@ -48,7 +48,8 @@ function ToggleVM() {
 
    
    useEffect(() => {
-    if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && connect.length === 0) {
+
+    if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && ctx.connect.length === 0) {
       const fetchData = async () => {
         try {
           const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/2';
@@ -57,7 +58,7 @@ function ToggleVM() {
           { 
             if (Array.isArray(response.data.message)) {
               const formattedJSON =  response.data.message.filter(item => !item.class.includes("Mirror")).map(item => { const p = item.class.split('.'); return p[p.length - 1]; });
-              setConnect(formattedJSON);
+              ctx.setConnect(formattedJSON);
               clearInterval(interval); 
               ctx.setRadioValue("3");
               ctx.now = 100;
@@ -119,7 +120,7 @@ function ToggleVM() {
    <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' }}>PLUGINS INSTALLED</span> 
 
       <ListGroup>
-      {connect.map((item, index) => (
+      {ctx.connect.map((item, index) => (
         <ListGroup.Item key={index} className="bg-light">{item}</ListGroup.Item>
       ))}
     </ListGroup>

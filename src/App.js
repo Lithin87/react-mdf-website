@@ -13,6 +13,7 @@ function App() {
     const [vmstatus, setVmstatus] = useState("");
     const [checked, setChecked] = useState(false);
     const [radioValue, setRadioValue] = useState('1');
+    const [connect, setConnect] = useState([]);
 
     const activeCtx = {
         now,
@@ -24,7 +25,9 @@ function App() {
         checked,
         setChecked,
         radioValue,
-        setRadioValue
+        setRadioValue,
+        connect,
+        setConnect
     };
 
     return (

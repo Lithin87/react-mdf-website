@@ -1,6 +1,5 @@
-import Accordion from 'react-bootstrap/Accordion';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Form , Button , Accordion, Toast } from 'react-bootstrap';
+import Axios from 'axios';
 
 function FileInputExample({ onFileUpload ,id }) {
 
@@ -32,12 +31,18 @@ function FileInputExample({ onFileUpload ,id }) {
 
 function AccordionOptions(props) {
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if(props.state === "")
     alert("Pls select the file")
     else
   {
-    alert(props.state);
+    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ props.eventKey;
+    let response = "";
+    response =  await Axios.post(url_r, props.state ).catch((error) => {console.log("Error accessing backend"+error); });
+    if(response !== "")
+    {  
+      alert(JSON.stringify(response));
+    }
   }
    }
 

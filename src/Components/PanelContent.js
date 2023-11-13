@@ -23,16 +23,16 @@ function PanelContent(props) {
     return (
         <>
             <Panel header="GENERATE DATA">
-                <AccordionOptions  eventKey="0" state={fileContent0}  setState= {setFileContent0} >Generate from SCHEMA</AccordionOptions>
-                <AccordionOptions  eventKey="1" state={fileContent1}  setState= {setFileContent1} >Generate from JSON</AccordionOptions>
+                <AccordionOptions  eventKey="3" state={fileContent0}  setState= {setFileContent0} >Generate from SCHEMA</AccordionOptions>
+                <AccordionOptions  eventKey="4" state={fileContent1}  setState= {setFileContent1} >Generate from JSON</AccordionOptions>
             </Panel>
 
             <Panel header="DEFINE CONFIG SETTINGS">
-            <AccordionOptions  eventKey="2" state={fileContent2}  setState= {setFileContent2} >Generate from Connector Configuration</AccordionOptions>
+            <AccordionOptions  eventKey="5" state={fileContent2}  setState= {setFileContent2} >Generate from Connector Configuration</AccordionOptions>
             </Panel>
 
             <Panel header="CHAT GPT AUTOMATION">
-            <AccordionOptions  eventKey="3" state={fileContent3}  setState= {setFileContent3} >Ask questions from AI</AccordionOptions>
+            <AccordionOptions  eventKey="11" state={fileContent3}  setState= {setFileContent3} >Ask questions from AI</AccordionOptions>
             </Panel>
         </>
     );
