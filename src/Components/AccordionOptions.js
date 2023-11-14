@@ -2,6 +2,7 @@ import { Form , Button , Accordion } from 'react-bootstrap';
 import Axios from 'axios';
 import AppContext from '../Contexts/app-context';
 import { useContext} from 'react';
+import ConsoleOutput from './ConsoleOutput';
 
 function FileInputExample({ onFileUpload ,id }) {
 
@@ -66,6 +67,7 @@ function AccordionOptions(props) {
         <h8 style={{ color: 'blue' }}>Uploaded File Content:</h8>
         <pre>{props.state}</pre>
       </div>
+      <ConsoleOutput/>
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
