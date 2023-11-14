@@ -1,14 +1,14 @@
-import { useContext, useEffect ,useState} from 'react';
-import { Image ,ButtonGroup, ToggleButton, ProgressBar, Button, ListGroup} from 'react-bootstrap';
+import { useContext, useEffect } from 'react';
+import { Image ,ButtonGroup, ToggleButton, ProgressBar, Button, ListGroup } from 'react-bootstrap';
 import Axios from 'axios';
-
+import RangeExample from './Slider';
 import bootOn from '../images/power-button.png';
-import AuthContext from '../Contexts/app-context';
+import AppContext from '../Contexts/app-context';
 
 
 function ToggleVM() {
 
-  const ctx = useContext(AuthContext);
+  const ctx = useContext(AppContext);
 
   const handleReset = async () => { 
       ctx.setNow(0); 
@@ -135,6 +135,8 @@ function ToggleVM() {
     </ListGroup>
 
     <br /> <br /> <br /> <br />
+    <RangeExample/>
+    <br /> <br />
     <Button class="nav-link" variant="danger" onClick={handleDeleteConnectors}> DELETE CONNECTORS</Button>
     {/* <Button class="nav-link" variant="danger" onClick={handleDeleteTopics}> DELETE TOPICS</Button> */}
 

@@ -1,6 +1,7 @@
-import { Form , Button , Accordion, Toast } from 'react-bootstrap';
+import { Form , Button , Accordion } from 'react-bootstrap';
 import Axios from 'axios';
-
+import AppContext from '../Contexts/app-context';
+import { useContext} from 'react';
 
 function FileInputExample({ onFileUpload ,id }) {
 
@@ -32,11 +33,13 @@ function FileInputExample({ onFileUpload ,id }) {
 
 function AccordionOptions(props) {
 
+  const ctx = useContext(AppContext);
+
   const handleClick = async () => {
     let schema = {};
     if(props.state === "") alert("NO file selected. Using Pre-Configured Data"); else schema = props.state;
     console.log(schema);
-    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ props.eventKey;
+    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ props.eventKey+'?rate='+ ctx.rate;
     let response = "";
     response =  await Axios.post(url_r, schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
     if(response !== "")

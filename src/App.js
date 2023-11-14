@@ -4,7 +4,7 @@ import './App.css';
 import PanelContent from './Components/PanelContent';
 import MenuBar from './Components/MenuBar';
 import { useState } from 'react';
-import AuthContext from './Contexts/app-context';
+import AppContext from './Contexts/app-context';
 
 function App() {
 
@@ -14,6 +14,7 @@ function App() {
     const [checked, setChecked] = useState(false);
     const [radioValue, setRadioValue] = useState('1');
     const [connect, setConnect] = useState([]);
+    const [rate, setRate] = useState([]);
 
     const activeCtx = {
         now,
@@ -27,17 +28,19 @@ function App() {
         radioValue,
         setRadioValue,
         connect,
-        setConnect
+        setConnect,
+        rate,
+        setRate
     };
 
     return (
         <div className="App">
-            <AuthContext.Provider value={activeCtx}>
+            <AppContext.Provider value={activeCtx}>
             <nav> <h1>Mimic Data Framework</h1></nav>
             <MenuBar/>
             <PanelContent/>
             <footer> © 2023 My Website </footer>
-            </AuthContext.Provider>
+            </AppContext.Provider>
         </div>
     );
 }
