@@ -9,8 +9,9 @@ function ConsoleOutput() {
     <div>
       <textarea
         value={ctx.consoleText}
-        rows={20} 
-        cols={60} 
+        rows={10} 
+        cols={80} 
+        style={{ border: 'none', resize: 'none' }}
       />
     </div>
   );

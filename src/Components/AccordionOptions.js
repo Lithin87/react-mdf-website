@@ -55,19 +55,22 @@ function AccordionOptions(props) {
       <Accordion.Item eventKey={props.eventKey}>
         <Accordion.Header>{props.children}</Accordion.Header>
         <Accordion.Body>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+
+        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div style={{ flex: '1', alignItems: 'center' }}>
   <FileInputExample id={props.eventKey} onFileUpload={c => props.setState(c)} />
   <Button variant="primary" style={{ marginLeft: '70px', marginTop: '15px' }} onClick={handleClick}>
     SUBMIT
   </Button>
-  {/* <pre style={{ marginLeft: '70px', marginTop: '15px' }}>{props.state}</pre> */}
+     </div>
+     <ConsoleOutput />
 </div>
 
         <div>
         <h8 style={{ color: 'blue' }}>Uploaded File Content:</h8>
         <pre>{props.state}</pre>
       </div>
-      <ConsoleOutput/>
+     
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

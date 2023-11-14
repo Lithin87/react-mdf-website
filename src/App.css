@@ -1,7 +1,6 @@
 .App {
   font-family: Arial, sans-serif;
   padding: 20px;
-  text-align: center;
   display: flex;
   justify-content: space-around;
 
@@ -15,9 +14,9 @@ nav {
 }
 
 .ConsoleOutput {
-  flex: .5;
+  flex: 1;
   padding: 16px;
-
+  justify-content: space-around;
 }
 
 .columnpane {
