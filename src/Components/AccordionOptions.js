@@ -16,9 +16,10 @@ function AccordionOptions(props) {
 
   const handleClick = async () => {
     let schema = {};
-    if(props.state === "") alert("NO file selected. Using Pre-Configured Data"); else schema = props.state;
-    console.log(schema);
-    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ props.eventKey+'?rate='+ ctx.rate;
+    if(props.state === "") setOutput(p => p+"No File Selected. Using Pre-Configured Data"); else schema = props.state;
+
+    let max_interval = (60* 1000) / ctx.rate;
+    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ props.eventKey+'?rate='+ max_interval;
     let response = "";
     response =  await Axios.post(url_r, schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
     if(response !== "")
