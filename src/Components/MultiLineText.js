@@ -2,7 +2,7 @@ import React , { useContext } from 'react';
 import AppContext from '../Contexts/app-context';
 
 
-function MultiLineText() {
+function MultiLineText( {isChecked}) {
  
   const ctx = useContext(AppContext);
 
@@ -11,13 +11,13 @@ function MultiLineText() {
   };
 
   return (
-    <div>
-      <h2>INPUT TEXT</h2>
+    <div style={{ display: isChecked ? 'block' : 'none' }}>
+      <h6 style={{ color: 'blue' }}>PASTE SCHEMA :</h6>
       <textarea
         value={ctx.text}
         onChange={handleInputChange}
-        rows={12} 
-        cols={10} 
+        rows={4} 
+        cols={60} 
       />
    
     </div>

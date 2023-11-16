@@ -21,14 +21,14 @@ function App() {
     const [text, setText] = useState([]);
 
     const activeCtx = {
-        now, setNow,
-        show, setShow,
-        vmstatus, setVmstatus,
-        checked, setChecked,
-        radioValue, setRadioValue,
-        connect, setConnect,
-        rate, setRate,
-        text,setText
+        now : now, setNow : setNow,
+        show : show, setShow : setShow,
+        vmstatus : vmstatus, setVmstatus : setVmstatus,
+        checked : checked, setChecked : setChecked,
+        radioValue : radioValue, setRadioValue : setRadioValue,
+        connect : connect, setConnect : setConnect,
+        rate : rate, setRate : setRate,
+        text : text,setText : setText
     };
 
     return (

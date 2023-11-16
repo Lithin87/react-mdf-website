@@ -9,22 +9,22 @@ function MenuBar(props) {
 
 
     return (
-        <><nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="http://www.google.com"> <Image src={brand4} width="70" height="70" alt="Small Image" rounded thumbnail /></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">XXX</span>
+        <><nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand" href="http://www.google.com"> <Image src={brand4} width="70" height="70" alt="Small Image" rounded thumbnail /></a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon">XXX</span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+            <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="navbar-nav">
                     
-                    <li class="nav-item">
+                    <li className="nav-item">
                         <OffcanvasVM >VM Operations</OffcanvasVM>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="http://www.google.com" tabindex="-1" aria-disabled="true" style={{color: "blue"}}>SERVER {ctx.radioValue === "3" ? "ON" : "OFF"}</a>
+                    <li className="nav-item">
+                        <a className="nav-link disabled" href="http://www.google.com" tabIndex="-1" aria-disabled="true" style={{color: "blue"}}>SERVER {ctx.radioValue === "3" ? "ON" : "OFF"}</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://www.google.com">HELP</a>
+                    <li className="nav-item active">
+                        <a className="nav-link" href="http://www.google.com">HELP</a>
                     </li>
                 </ul>
             </div>

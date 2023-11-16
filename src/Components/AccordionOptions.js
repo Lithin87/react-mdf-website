@@ -1,38 +1,16 @@
 import { Form , Button , Accordion } from 'react-bootstrap';
 import Axios from 'axios';
 import AppContext from '../Contexts/app-context';
-import { useContext} from 'react';
+import { useState, useContext} from 'react';
 import ConsoleOutput from './ConsoleOutput';
+import SchemaInput from './SchemaInput';
 
-function FileInputExample({ onFileUpload ,id }) {
-
-    const handleFileChange = (event) => {
-        const selectedFile = event.target.files[0]; 
-        if (selectedFile) {
-          
-          const reader = new FileReader();
-    
-          reader.onload = (e) => {
-            const fileContent = e.target.result;
-            onFileUpload(fileContent); 
-          };
-    
-          reader.readAsText(selectedFile); // You can use other methods like readAsDataURL for images
-        }
-      };
-
-    return (
-      <Form>
-        <Form.Group controlId={id} className="mb-3">
-          <Form.Label style={{ color: 'blue' }}>Choose a File</Form.Label>
-          <Form.Control type="file" onChange={handleFileChange} />
-        </Form.Group>
-      </Form>
-    );
-  }
 
 
 function AccordionOptions(props) {
+
+  const [output, setOutput] = useState(""); 
+  const [checked, setChecked] = useState(false);
 
   const ctx = useContext(AppContext);
 
@@ -45,9 +23,19 @@ function AccordionOptions(props) {
     response =  await Axios.post(url_r, schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
     if(response !== "")
     {  
-      alert(JSON.stringify(response.data));
+      setOutput(response.data);
     }
    }
+
+   const handleDelete = async () => { 
+    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/8';
+    let response = "";
+    response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
+    if(response !== "")
+    {  
+      setOutput(response.data);
+    }
+    }
 
 
   return (
@@ -56,19 +44,18 @@ function AccordionOptions(props) {
         <Accordion.Header>{props.children}</Accordion.Header>
         <Accordion.Body>
 
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <div style={{ flex: '1', alignItems: 'center' }}>
-  <FileInputExample id={props.eventKey} onFileUpload={c => props.setState(c)} />
-  <Button variant="primary" style={{ marginLeft: '70px', marginTop: '15px' }} onClick={handleClick}>
-    SUBMIT
-  </Button>
-     </div>
-     <ConsoleOutput />
-</div>
+        <div style={{ display: 'flex' }}>
+          <div style={{display: 'flex', flex: '1 1 0', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
+            <SchemaInput eventKey={props.eventKey}  onFileUpload={c => props.setState(c)}  style={{flex: '1'}} checked={checked} setChecked={setChecked}  />
+            <Button variant="primary" size="sm" style={{flex: '0 0 0', marginLeft: '200px', marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
+            <Button variant="danger" size="sm" hidden={props.eventKey === '9'} style={{flex: '0 0 0', marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>
+          </div>
+          <ConsoleOutput>{ output }</ConsoleOutput>
+        </div>
 
-        <div>
-        <h8 style={{ color: 'blue' }}>Uploaded File Content:</h8>
-        <pre>{props.state}</pre>
+        <div style={{ display: props.state === "" ? 'none' : 'block' }}>
+        <h6 style={{ color: 'blue' }}>Uploaded File Content:</h6>
+        <pre style={{ whiteSpace: 'pre-wrap' }}>{props.state}</pre>
       </div>
      
         </Accordion.Body>

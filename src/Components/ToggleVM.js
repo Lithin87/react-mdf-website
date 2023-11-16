@@ -11,10 +11,10 @@ function ToggleVM() {
   const ctx = useContext(AppContext);
 
   const handleReset = async () => { 
-      ctx.setNow(0); 
-      ctx.setVmstatus(''); 
-      ctx.setChecked(false); 
-      ctx.setRadioValue('1'); 
+      // ctx.setNow(0); 
+      // ctx.setVmstatus(''); 
+      // ctx.setChecked(false); 
+      // ctx.setRadioValue('1'); 
       const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
       await Axios.get(url_r).then(response => {if(response.data === "") ctx.setVmstatus("OFF"); else {ctx.setVmstatus(response.data);
           ctx.setRadioValue("2") ; ctx.setChecked(true);  } })
@@ -22,16 +22,6 @@ function ToggleVM() {
          console.error('IP Address fetch went wrong!', error);
        });
     }
-
-    const handleDeleteConnectors = async () => { 
-      const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/8';
-      let response = "";
-      response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
-      if(response !== "")
-      {  
-        alert(JSON.stringify(response.data));
-      }
-      }
 
   const radios = [
       { name: 'OFF', value: '1' },
@@ -56,36 +46,15 @@ function ToggleVM() {
    };
 
    
-   useEffect(() => {
-
-    if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && ctx.connect.length === 0) {
-      const fetchData = async () => {
-        try {
-          const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/2';
-          let response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
-          if(response !== undefined )
-          { 
-            if (Array.isArray(response.data.message)) {
-              const formattedJSON =  response.data.message.filter(item => !item.class.includes("Mirror")).map(item => { const p = item.class.split('.'); return p[p.length - 1]; });
-              ctx.setConnect(formattedJSON);
-              clearInterval(interval); 
-              ctx.setRadioValue("3");
-              ctx.now = 100;
-              console.dir(formattedJSON, {depth :null});
-            } 
-          }     
-        } catch (error) {
-          console.error('API error:', error);
-        }
-      };
+   useEffect(() => {   if(!ctx.vmstatus) handleReset();
+    
+    if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && ctx.connect.length === 0 ) {
+      const fetchData = async () => { if (await pluginListCall()) clearInterval(interval);};
       const interval = setInterval(fetchData, 5000);
 
-    return () => {
-      clearInterval(interval);
-    };
-    
+      return () => clearInterval(interval);
     }
-  }, [ctx]);
+  }, [ctx.vmstatus]);
 
 
   return (
@@ -137,11 +106,28 @@ function ToggleVM() {
     <br /> <br /> <br /> <br />
     <RangeExample/>
     <br /> <br />
-    <Button class="nav-link" variant="danger" onClick={handleDeleteConnectors}> DELETE CONNECTORS</Button>
-    {/* <Button class="nav-link" variant="danger" onClick={handleDeleteTopics}> DELETE TOPICS</Button> */}
 
     </>
   );
+
+  async function pluginListCall() {
+    try {
+      const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/2';
+      let response = await Axios.get(url_r).catch((error) => { console.log("Error accessing backend" + error); });
+      if (response !== undefined) {
+        if (Array.isArray(response.data.message)) {
+          const formattedJSON = response.data.message.filter(item => !item.class.includes("Mirror")).map(item => { const p = item.class.split('.'); return p[p.length - 1]; });
+          ctx.setConnect(formattedJSON);
+          ctx.setRadioValue("3");
+          ctx.now = 100;
+          console.dir(formattedJSON, { depth: null });
+          return true;
+        }
+      }
+    } catch (error) {
+      console.error('API error:', error);
+    }
+  }
 }
 
 export default ToggleVM;
