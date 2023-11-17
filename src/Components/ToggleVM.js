@@ -11,10 +11,6 @@ function ToggleVM() {
   const ctx = useContext(AppContext);
 
   const handleReset = async () => { 
-      // ctx.setNow(0); 
-      // ctx.setVmstatus(''); 
-      // ctx.setChecked(false); 
-      // ctx.setRadioValue('1'); 
       const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
       await Axios.get(url_r).then(response => {if(response.data === "") ctx.setVmstatus("OFF"); else {ctx.setVmstatus(response.data);
           ctx.setRadioValue("2") ; ctx.setChecked(true);  } })
@@ -38,7 +34,7 @@ function ToggleVM() {
       if(response !== "")
       {  ctx.setRadioValue(on_off === 6 ? "1" : "2");
       const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/ipaddress';
-      await Axios.get(url_r).then(response => {if(response.data === "") {ctx.setVmstatus("OFF"); ctx.setConnect([]); } else {ctx.setVmstatus(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
+      await Axios.get(url_r).then(response => {if(response.data === "") {ctx.setVmstatus("OFF"); ctx.setPlugin([]); } else {ctx.setVmstatus(response.data);  ctx.setRadioValue("2") ; ctx.setChecked(true)   } })
         .catch(error => {
           console.error('IP Address fetch went wrong!', error);
         });
@@ -48,7 +44,7 @@ function ToggleVM() {
    
    useEffect(() => {   if(!ctx.vmstatus) handleReset();
     
-    if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && ctx.connect.length === 0 ) {
+    if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && ctx.plugin.length === 0 ) {
       const fetchData = async () => { if (await pluginListCall()) clearInterval(interval);};
       const interval = setInterval(fetchData, 5000);
 
@@ -59,8 +55,7 @@ function ToggleVM() {
 
   return (
     <>
-      <Button class="nav-link" variant="info" onClick={handleReset}> RESET</Button>
-      <br /> <br /> <br /> <br />
+      <br /> <br />  
       <ToggleButton
         className="mb-2"
         id="toggle-check"
@@ -72,7 +67,7 @@ function ToggleVM() {
       >
         <Image src={bootOn} width="50" height="40" alt="Small Image" rounded thumbnail /> BOOT ON </ToggleButton>
 
-      <br/><br/>
+      <br/><br/><br />
     
       CURRENT STATUS :  <br/>
       <ButtonGroup>
@@ -93,12 +88,13 @@ function ToggleVM() {
       </ButtonGroup><p/>
       <ProgressBar animated now={ ctx.now } label={`${Math.round( ctx.now)}%`} />
 
-      <br/> <br/> 
+      <br/> <br/> <br /><br />
   
    <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' }}>PLUGINS INSTALLED</span> 
 
+   <br /><br />
       <ListGroup>
-      {ctx.connect.map((item, index) => (
+      {ctx.plugin.map((item, index) => (
         <ListGroup.Item key={index} className="bg-light">{item}</ListGroup.Item>
       ))}
     </ListGroup>
@@ -117,7 +113,7 @@ function ToggleVM() {
       if (response !== undefined) {
         if (Array.isArray(response.data.message)) {
           const formattedJSON = response.data.message.filter(item => !item.class.includes("Mirror")).map(item => { const p = item.class.split('.'); return p[p.length - 1]; });
-          ctx.setConnect(formattedJSON);
+          ctx.setPlugin(formattedJSON);
           ctx.setRadioValue("3");
           ctx.now = 100;
           console.dir(formattedJSON, { depth: null });

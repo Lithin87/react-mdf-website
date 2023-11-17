@@ -16,9 +16,9 @@ function App() {
     const [vmstatus, setVmstatus] = useState("");
     const [checked, setChecked] = useState(false);
     const [radioValue, setRadioValue] = useState('1');
-    const [connect, setConnect] = useState([]);
+    const [plugin, setPlugin] = useState([]);
     const [rate, setRate] = useState(120);
-    const [text, setText] = useState('');
+    const [schema, setSchema] = useState('');
 
     const activeCtx = {
         now : now, setNow : setNow,
@@ -26,9 +26,9 @@ function App() {
         vmstatus : vmstatus, setVmstatus : setVmstatus,
         checked : checked, setChecked : setChecked,
         radioValue : radioValue, setRadioValue : setRadioValue,
-        connect : connect, setConnect : setConnect,
+        plugin : plugin, setPlugin : setPlugin,
         rate : rate, setRate : setRate,
-        text : text,setText : setText
+        schema : schema, setSchema : setSchema
     };
 
     return (

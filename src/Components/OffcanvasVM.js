@@ -12,7 +12,7 @@ function OffcanvasVM({children}) {
   const handleShow = () => ctx.setShow(true);
   
   useEffect(() => {
-    const totalDuration = 3 * 2 * 1000;
+    const totalDuration = 3 * 5 * 1000;
 
     let startTime = Date.now();
     const interval = setInterval(() => {
@@ -24,7 +24,7 @@ function OffcanvasVM({children}) {
         const progress = (elapsedTime / totalDuration) * 100;
         ctx.setNow(progress);
       }
-    }, 500);
+    }, 250);
 
     return () => {
       clearInterval(interval);

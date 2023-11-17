@@ -13,26 +13,19 @@ function Panel(props) {
 
 function PanelContent(props) {
 
-     const [fileContent0, setFileContent0] = useState('');
-     const [fileContent1, setFileContent1] = useState('');
-     const [fileContent2, setFileContent2] = useState('');
-     const [fileContent3, setFileContent3] = useState('');
-
-
-
     return (
         <>
             <Panel header="GENERATE DATA">
-                <AccordionOptions  eventKey="3" state={fileContent0}  setState= {setFileContent0} >Generate from SCHEMA</AccordionOptions>
-                <AccordionOptions  eventKey="4" state={fileContent1}  setState= {setFileContent1} >Generate from JSON</AccordionOptions>
+                <AccordionOptions  eventKey="3" >Generate from SCHEMA</AccordionOptions>
+                <AccordionOptions  eventKey="4" >Generate from JSON</AccordionOptions>
             </Panel>
 
             <Panel header="DEFINE CONFIG SETTINGS">
-            <AccordionOptions  eventKey="5" state={fileContent2}  setState= {setFileContent2} >Generate from Connector Configuration</AccordionOptions>
+            <AccordionOptions  eventKey="5" >Generate from Connector Configuration</AccordionOptions>
             </Panel>
 
             <Panel header="CHAT GPT AUTOMATION">
-            <AccordionOptions  eventKey="9" state={fileContent3}  setState= {setFileContent3} >Ask questions from AI</AccordionOptions>
+            <AccordionOptions  eventKey="9" >Ask questions from AI</AccordionOptions>
             </Panel>
         </>
     );

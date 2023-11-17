@@ -1,20 +1,16 @@
-import React , { useContext } from 'react';
-import AppContext from '../Contexts/app-context';
+import React  from 'react';
 
-
-function MultiLineText( {isChecked}) {
- 
-  const ctx = useContext(AppContext);
+function MultiLineText( props) {
 
   const handleInputChange = (event) => {
-    ctx.setText(event.target.value);
+    props.setSchema(event.target.value);
   };
 
   return (
-    <div style={{ display: isChecked ? 'block' : 'none' }}>
+    <div style={{ display: props.isChecked ? 'block' : 'none' }}>
       <h6 style={{ color: 'blue' }}>PASTE SCHEMA :</h6>
       <textarea
-        value={ctx.text}
+        value={props.schema}
         onChange={handleInputChange}
         rows={4} 
         cols={60} 
