@@ -10,6 +10,7 @@ import ImageHint from './ImageHint';
 
 function AccordionOptions(props) {
 
+  let key = props.eventKey;
   const [output, setOutput] = useState(""); 
   const [fileContent, setFileContent] = useState('');
   const [schema, setSchema] = useState('');
@@ -27,7 +28,7 @@ function AccordionOptions(props) {
     if(schema === "") setOutput(p => p+"No Schema Selected. Using Pre-Configured Data"); else final_schema = schema;
     
     let max_interval = (60* 1000) / ctx.rate;
-    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ props.eventKey+'?rate='+ max_interval;
+    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval;
     let response = "";
     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
     if(response !== "")
@@ -49,15 +50,18 @@ function AccordionOptions(props) {
 
   return (
     <Accordion >
-      <Accordion.Item eventKey={props.eventKey}>
-        <Accordion.Header >{props.children} <ImageHint htmlFor="field5"  style={{ marginLeft: '800px' }}></ImageHint></Accordion.Header>
+      <Accordion.Item eventKey={key}>
+        <Accordion.Header >{props.children} <span>&nbsp;&nbsp;</span> <ImageHint htmlFor={key} setSchema={setSchema} setToggle={setToggle} onClick={(e) =>{
+    e.stopPropagation();
+    e.preventDefault();
+  }} ></ImageHint></Accordion.Header>
         <Accordion.Body>
 
         <div style={{ display: 'flex' }}>
           <div style={{display: 'flex', flex: '1 1 0', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
-            <SchemaInput eventKey={props.eventKey}  onFileUpload={setFileContent}  schema={schema} setSchema={setSchema} toggle={toggle}  setToggle={setToggle} style={{flex: '1'}}  />
+            <SchemaInput eventKey={key}  onFileUpload={setFileContent}  schema={schema} setSchema={setSchema} toggle={toggle}  setToggle={setToggle} style={{flex: '1'}}  />
             <Button variant="primary" size="sm" style={{flex: '0 0 0', marginLeft: '200px', marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
-            <Button variant="danger" size="sm" hidden={props.eventKey === '9'} style={{flex: '0 0 0', marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>
+            <Button variant="danger" size="sm" hidden={key === '9'} style={{flex: '0 0 0', marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>
           </div>
           <ConsoleOutput>{ output }</ConsoleOutput>
         </div>

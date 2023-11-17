@@ -12,7 +12,7 @@ function MultiLineText( props) {
       <textarea
         value={props.schema}
         onChange={handleInputChange}
-        rows={4} 
+        rows={8} 
         cols={60} 
       />
    

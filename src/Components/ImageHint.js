@@ -1,17 +1,15 @@
-import AuthContext from '../Contexts/app-context';
-import { useContext } from 'react';
 import help from '../images/help.png';
 
-const field3 = { "schema" : 
+const field3 =   { "schema" : 
 {
-  "connect.name": "lithin.personal.ust_data",
+  "connect.name": "ust.boots",
   "fields": [
     {
-      "name": "store_id",
+      "name": "boots_id",
       "type": "int"
     },
     {
-      "name": "order_lines",
+      "name": "delhi_lines",
       "type": {
         "items": {
           "connect.name": "lithin.personal.order_line",
@@ -44,8 +42,8 @@ const field3 = { "schema" :
       }
     }
   ],
-  "name": "ust_data",
-  "namespace": "lithin.personal",
+  "name": "boots",
+  "namespace": "ust",
   "type": "record"
 }
 }
@@ -81,9 +79,10 @@ const field9 =
   "data": "pls give a  sample json message with context of a shopping with 20 fields with valid values and with mandatory key named account"
 }
 
-function ImageHint({ htmlFor}) {
+function ImageHint({ htmlFor, setSchema,setToggle}) {
     
-   const ctx = useContext(AuthContext);
+  console.log(htmlFor);
+
    const index = htmlFor.slice(-1)
 
    const help_map = new Map();
@@ -98,15 +97,16 @@ function ImageHint({ htmlFor}) {
    help_map.set('9', field9);
 
    const handleClick = async () => {
+   setToggle(true);
    const help = help_map.get(index);
    const formattedJSON = JSON.stringify(help, null, 2); 
-   ctx.setText(formattedJSON);
+   setSchema(formattedJSON);
   };
 
  
     return (
       <>
-      <img src={help} htmlFor="field1" alt="field1"  onClick={handleClick} className='tiny-image'></img>
+      <img src={help}  onClick={handleClick} className='tiny-image'></img>
       </>
     );
   }
