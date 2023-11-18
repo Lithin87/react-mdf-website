@@ -24,7 +24,7 @@ function MenuBar(props) {
                         <a className="nav-link disabled" href="http://www.google.com" tabIndex="-1" aria-disabled="true" style={{color: "blue"}}>SERVER {ctx.radioValue === "3" ? "ON" : "OFF"}</a>
                     </li>
                     <li className="nav-item active">
-                        <a className="nav-link" href="http://www.google.com">HELP</a>
+                        <a className="nav-link" href="./manual.html">HELP</a>
                     </li>
                 </ul>
             </div>
