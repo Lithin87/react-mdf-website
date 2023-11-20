@@ -21,9 +21,9 @@ function AccordionOptions(props) {
     let final_schema = {};
 
     if(toggle === false)
-    if(fileContent === "") setOutput(p => p+"No File Selected. Using Pre-Configured Data"); else final_schema = fileContent;
+    if(fileContent === "") setOutput(p => p + "\nNo File Selected. Using Pre-Configured Data"); else final_schema = fileContent;
     else
-    if(schema === "") setOutput(p => p+"No Schema Selected. Using Pre-Configured Data"); else final_schema = schema;
+    if(schema === "") setOutput(p => p + "\nNo Schema Selected. Using Pre-Configured Data"); else final_schema = schema;
     
     let max_interval = (60* 1000) / ctx.rate;
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval;
@@ -31,7 +31,7 @@ function AccordionOptions(props) {
     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
     if(response !== "")
     {  
-      setOutput(response.data);
+      setOutput(p => p +"\n"+  response.data);
     }
    }
 
@@ -41,7 +41,7 @@ function AccordionOptions(props) {
     response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
     if(response !== "")
     {  
-      setOutput(response.data);
+      setOutput(p => p +"\n" +response.data);
     }
     }
 

@@ -5,20 +5,86 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
  
+    <style>
+      body {
+        font-size: 18px; /* Set a base font size for the body */
+      }
+
+      /* h1, h2, h3, h4, h5, h6 {
+        /* Adjust font size for heading elements */
+        font-size: 1.5em; /* Adjust the multiplier as needed */
+      } */
+
+      p {
+        /* Adjust font size for paragraph elements */
+        font-size: 1.2em; /* Adjust the multiplier as needed */
+      }
+    </style>
     <title>React App</title>
   </head>
   <body>
-    Mimic Data Framework(MDF) <br> (Imitate,Integrate,Innovate. Your Data, Your Way) <br>
-    <br> Utility tool for reducing testing cost and also the infrastructure cost.
+    <center> 
+      <h1 style="color: blue"> Mimic Data Framework(MDF)</h1>  
+      <h3 style="color: rgba(0, 0, 255, 0.5);">(Imitate,Integrate,Innovate. Your Data, Your Way)</h3>
+      <h4 style="color: rgb(0, 255, 05);">Utility tool for reducing testing cost and also the infrastructure cost.<h2></h4>
+    </center>
 <br>
-Existing Scenario : Project sometimes  have requirements to test a developed artifact using 
-A huge set of data each unique but adhering a particular schema 
- They need a continuous flow of data simulating a Client Source system with variable speed set by us.
-Previously the SDET  team have to be allocated and they may have a Project Managers and Test Leads to coordinate and then take days to prepare  huge number of tests data taking a considerable valuable amount of employee and time. Resources utilized 
-Test Engineers
-Test PM
-Days of effort
-<img src="./mdf_design.jpg" width="600" height="400" alt="Description""> </br></br></br></br>
-<img src="./mdf_usecase.jpg"   width="600" height="400" alt="Description"">
+<h3 style="color: blue">Existing Scenario :</h3>
+<ul>
+ <li> Sometimes  have requirements to test a developed artifact using a huge set of data each unique but adhering a particular schema.</li> 
+ <li> They need a continuous flow of data simulating a Client Source system with variable speed set by us.</li> 
+ <li> Previously the SDET  team have to be allocated and they may have a Project Managers and Test Leads to coordinate and then take days
+ to prepare  huge number of tests data taking a considerable valuable amount of employee and time. </li> 
+</ul>
+Resources utilized 
+<ul>
+  <li>Test Engineers</li>
+  <li>Test PM</li>
+  <li>Days of effort</li>
+</ul>
+
+<center> 
+<h3 style="color: blue">  Architecture for New End-To-End Testing with the Tool in Apigee in Boots Projects </h3>  
+<img src="./mdf_design.jpg" width="900" height="400" alt="Description""> </br></br></br></br>
+
+<h3 style="color: blue">  Mimic Data Framework(MDF) Component Diagram </h3>  
+<img src="./mdf_usecase.jpg"   width="900" height="400" alt="Description"">
+</center>
+
+<br><br><br><br><br>
+
+<h3 style="color: blue">Usage & Future way of accessing Utility Tools :</h3>
+<ul>
+ <li> This tool helps in avoiding that by generating infinite set of unique JSON payload messages by taking as input any one of below </li> 
+  <ol>
+    <li> An Avro schema of the required message structure..</li> 
+    <li> A sample JSON message provided by the source client. </li> 
+  </ol>
+ <li> Additionally, it enables us to simulate a functioning client system for end-to-end testing. . </li> 
+ <li> This helps developers to test their developed code instantly without taking help or waiting for testers.  </li> 
+ <li>  Furthermore, it can serve as a stress testing tool for most of our performance requirement.  </li> 
+ <li> We can customize the range of values to be picked for generating the messages and offers the flexibility to send these generated messages to various destinations.   </li> 
+ <li> These destinations include databases in on-premises or cloud environments, as well as HTTP URLs such as websites, AWS functions, running VMs or container images, cloud functions, and more.  </li> 
+</ul>
+
+<br>
+
+<h3 style="color: blue">Key Features of the Mimic Data Framework(MDF)  :</h3>
+<ul>
+ <li> <b>URL based browser GUI interface : </b> 
+  This interface of the type “user citizen” integration way . No local installation is required need software installation 
+</li> 
+ <li> <b>Minimal Cost : </b> 
+  The tool menu is hosted on GCP Cloud Run, with 2 million requests free. The main workload compute VM is provisioned on-demand and can be deleted once the work is completed.
+</li> 
+ <li> <b>Container as a Service : </b>
+  The main business logic workload is containerized within multiple container images. This speeds up the provisioning of virtual machines, making them rapidly available to developers within a few minutes for them to utilize its services.
+</li> 
+<li> <b> Use-Case defined Options : </b> 
+   The options available in the tool are all designed in a single clicks button GUI for required services and only the minimal html text elements are provided for getting all the required inputs from the developers to start the services.
+</li> 
+</ul>
+
+
   </body>
 </html>
