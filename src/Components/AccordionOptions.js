@@ -13,7 +13,7 @@ function AccordionOptions(props) {
   const [fileContent, setFileContent] = useState('');
   const [schema, setSchema] = useState('');
   const [toggle, setToggle] = useState(false);
-
+  
 
   const ctx = useContext(AppContext);
 
@@ -31,7 +31,7 @@ function AccordionOptions(props) {
     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
     if(response !== "")
     {  
-      setOutput(p => p +"\n"+  response.data);
+      setOutput(response.data);
     }
    }
 
@@ -41,7 +41,7 @@ function AccordionOptions(props) {
     response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
     if(response !== "")
     {  
-      setOutput(p => p +"\n" +response.data);
+      setOutput(response.data);
     }
     }
 

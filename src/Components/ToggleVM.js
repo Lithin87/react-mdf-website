@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { Image ,ButtonGroup, ToggleButton, ProgressBar, Button, ListGroup } from 'react-bootstrap';
+import { Image ,ButtonGroup, ToggleButton, ProgressBar, ListGroup } from 'react-bootstrap';
 import Axios from 'axios';
 import RangeExample from './Slider';
 import bootOn from '../images/power-button.png';

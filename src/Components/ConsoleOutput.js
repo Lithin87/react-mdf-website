@@ -1,5 +1,5 @@
 function ConsoleOutput({ children }) {
-  const message = children || '';
+  const message = children.message || '';
 
   const formatMessage = (message) => {
     
