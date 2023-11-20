@@ -4,8 +4,6 @@ import AppContext from '../Contexts/app-context';
 import { useState, useContext} from 'react';
 import ConsoleOutput from './ConsoleOutput';
 import SchemaInput from './SchemaInput';
-import ImageHint from './ImageHint';
-
 
 
 function AccordionOptions(props) {
@@ -51,10 +49,7 @@ function AccordionOptions(props) {
   return (
     <Accordion >
       <Accordion.Item eventKey={key}>
-        <Accordion.Header >{props.children} <span>&nbsp;&nbsp;</span> <ImageHint htmlFor={key} setSchema={setSchema} setToggle={setToggle} onClick={(e) =>{
-    e.stopPropagation();
-    e.preventDefault();
-  }} ></ImageHint></Accordion.Header>
+        <Accordion.Header >{props.children} </Accordion.Header>
         <Accordion.Body>
 
         <div style={{ display: 'flex' }}>

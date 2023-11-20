@@ -21,7 +21,7 @@ const SchemaInput = (props) => {
       />
     </Form>
 
-    <MultiLineText isChecked= {props.toggle} schema={props.schema} setSchema={props.setSchema} ></MultiLineText>
+    <MultiLineText isChecked= {props.toggle} setToggle={props.setToggle}  schema={props.schema} setSchema={props.setSchema} eventKey={props.eventKey} ></MultiLineText>
 
     <FileInputExample  id={props.eventKey} onFileUpload={props.onFileUpload}   checked= {props.toggle} />
     </div>

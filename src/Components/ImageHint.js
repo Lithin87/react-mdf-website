@@ -79,9 +79,7 @@ const field9 =
   "data": "pls give a  sample json message with context of a shopping with 20 fields with valid values and with mandatory key named account"
 }
 
-function ImageHint({ htmlFor, setSchema,setToggle}) {
-    
-  console.log(htmlFor);
+function ImageHint({ htmlFor, setSchema, setToggle}) {
 
    const index = htmlFor.slice(-1)
 
@@ -106,7 +104,7 @@ function ImageHint({ htmlFor, setSchema,setToggle}) {
  
     return (
       <>
-      <img src={help}  onClick={handleClick} className='tiny-image'></img>
+      <img src={help}  onClick={handleClick} className='tiny-image' alt=""></img>
       </>
     );
   }

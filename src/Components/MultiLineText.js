@@ -1,4 +1,5 @@
 import React  from 'react';
+import ImageHint from './ImageHint';
 
 function MultiLineText( props) {
 
@@ -8,7 +9,7 @@ function MultiLineText( props) {
 
   return (
     <div style={{ display: props.isChecked ? 'block' : 'none' }}>
-      <h6 style={{ color: 'blue' }}>PASTE SCHEMA :</h6>
+      <h6 style={{ color: 'blue' }}>PASTE SCHEMA : <ImageHint htmlFor={props.eventKey} setSchema={props.setSchema} setToggle={props.setToggle}/></h6>
       <textarea
         value={props.schema}
         onChange={handleInputChange}
