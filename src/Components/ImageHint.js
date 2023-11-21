@@ -65,12 +65,15 @@ const field5 ={
     "connector.class": "io.confluent.connect.http.HttpSinkConnector",
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "io.confluent.connect.avro.AvroConverter",
-    "topics": "Regex_Schema",
-    "http.api.url": "https://kafkasinkcollector-tava5544oa-uc.a.run.app",
+    "topics": "Template_Schema",
+    "http.api.url": "https://kafkasinkcollector-bxlquyhk2q-uc.a.run.app",
     "request.method": "post",
     "reporter.result.topic.replication.factor": "1",
     "reporter.error.topic.replication.factor": "1",
-    "reporter.bootstrap.servers": "broker:29092"
+    "reporter.bootstrap.servers": "broker:29092",
+    "tasks.max": "1",
+    "consumer.max.poll.records":"1",
+    "max.interval" : "500"
   }
 }
 
