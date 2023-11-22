@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "3395465b-1aab-43df-a66d-bfd266f1b393",
+		"name": "buk_liteReg_unsubscribe-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1826416"
+	},
+	"item": [
+
+				{
+					"name": "200 - ok",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "tPAUdNxitL3rTQluzsnM9tSRYTkAwpIT",
+								"type": "text"
+							},
+							{
+								"key": "cookie",
+								"value": "__sessiontoken=ApiGee/G4_*eFGoByeu",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"broadlogId\": \"@rJqUauBC6FisptITpG2UHg==\",\r\n    \"channel\": \"Email\",\r\n    \"cid\": \"DM7173\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/services/gbl/customers/litereg/v1/unsubscribe",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"services",
+								"gbl",
+								"customers",
+								"litereg",
+								"v1",
+								"unsubscribe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "200 - ok1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "tPAUdNxitL3rTQluzsnM9tSRYTkAwpIT",
+								"type": "text"
+							},
+							{
+								"key": "cookie",
+								"value": "__sessiontoken=ApiGee/G4_*eFGoByeu",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"broadlogID\": \"@rJqUauBC6FisptITpG2UHg==\",\r\n    \"channel\": \"Email\"\r\n    \r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/services/gbl/customers/litereg/v1/unsubscribe",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"services",
+								"gbl",
+								"customers",
+								"litereg",
+								"v1",
+								"unsubscribe"
+							]
+						}
+					},
+					"response": []
+				}
+			
+		,
+		{
+			"name": "401 - Without Api key",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"broadlogID\": \"@AmrolxSIH1uXK8yzmchl0w==\",\r\n\"channel\":\"Email\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/services/gbl/customers/litereg/v1/unsubscribe",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"services",
+						"gbl",
+						"customers",
+						"litereg",
+						"v1",
+						"unsubscribe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "401 - Invalid Api key",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "xyz",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"broadlogID\": \"@AmrolxSIH1uXK8yzmchl0w==\",\r\n\"channel\":\"Email\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/services/gbl/customers/litereg/v1/unsubscribe",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"services",
+						"gbl",
+						"customers",
+						"litereg",
+						"v1",
+						"unsubscribe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 -  incorrect payload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "cookie",
+						"value": "__sessiontoken=Sahil/sahil",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"broadlogID\": \"@AmrolxSIH1uXK8yzmchl0w==,\r\n\"channel\":\"Email\"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/services/gbl/customers/litereg/v1/unsubscribe",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"services",
+						"gbl",
+						"customers",
+						"litereg",
+						"v1",
+						"unsubscribe"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import MultiLineText from './MultiLineText';
-
+import ld from 'lodash';
+const jsonpath = require('jsonpath');
 
 const SchemaInput = (props) => {
  
@@ -38,8 +39,24 @@ function FileInputExample({ onFileUpload ,id,checked }) {
         const reader = new FileReader();
 
         reader.onload = (e) => {
-          const fileContent = e.target.result;
-          onFileUpload(fileContent); 
+          let fileContent = e.target.result;
+
+          if(id === '4') {
+          fileContent = JSON.parse(fileContent);
+
+          for (let i = 0; i < fileContent.item.length; i++) {
+            const name = jsonpath.value(fileContent, `$.item[${i}].name`);
+            // const verb = jsonpath.value(fileContent, `$.item[${i}].request.method`);
+            // const url = jsonpath.value(fileContent, `$.item[${i}].request.url.raw`);
+            if( name.split(" ")[0] === "200")
+            {
+              let body = jsonpath.value(fileContent, `$.item[${i}].request.body.raw`);
+              onFileUpload(JSON.stringify({ "schema" : body })); 
+              break;
+            }
+          }}
+          else onFileUpload(fileContent); 
+
         };
   
         reader.readAsText(selectedFile); // You can use other methods like readAsDataURL for images

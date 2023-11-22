@@ -16,11 +16,11 @@ function PanelContent(props) {
     return (
         <>
             <Panel header="GENERATE DATA">
-                <AccordionOptions  eventKey="3" >Generate from SCHEMA</AccordionOptions>
                 <AccordionOptions  eventKey="4" >Generate from JSON</AccordionOptions>
             </Panel>
 
             <Panel header="DEFINE CONFIG SETTINGS">
+            <AccordionOptions  eventKey="3" >Generate from SCHEMA</AccordionOptions>
             <AccordionOptions  eventKey="5" >Generate from Connector Configuration</AccordionOptions>
             </Panel>
 
