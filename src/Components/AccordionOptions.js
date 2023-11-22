@@ -45,6 +45,9 @@ function AccordionOptions(props) {
     }
     }
 
+    const decodedString = fileContent.replace(/^"|"$/g, '').replace(/\\"/g, '"').replace(/\\r\\n/g, '\r\n');
+
+
 
   return (
     <Accordion >
@@ -63,7 +66,7 @@ function AccordionOptions(props) {
 
         <div style={{ display: fileContent === "" ? 'none' : 'block' }}>
           <h6 style={{ color: 'blue' }}>Uploaded File Content:</h6>
-          <pre style={{ whiteSpace: 'pre-wrap' }}>{fileContent}</pre>
+          <pre style={{ whiteSpace: 'pre-wrap' }}>{decodedString}</pre>
         </div>
      
         </Accordion.Body>
