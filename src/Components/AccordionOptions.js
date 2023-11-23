@@ -13,9 +13,11 @@ function AccordionOptions(props) {
   const [fileContent, setFileContent] = useState('');
   const [schema, setSchema] = useState('');
   const [toggle, setToggle] = useState(false);
+  const [error_url, setError_url] = useState("");
   
 
   const ctx = useContext(AppContext);
+  const cluster_url = process.env.REACT_APP_BACKEND_HOST + '/services/7';
 
   const handleClick = async () => {
     let final_schema = {};
@@ -29,6 +31,8 @@ function AccordionOptions(props) {
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval;
     let response = "";
     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
+    let response1 =  await Axios.get(cluster_url).catch((error) => {console.log("Error accessing backend"+error); });
+    setError_url(response1.data.message);
     if(response !== "")
     {  
       setOutput(response.data);
@@ -39,6 +43,8 @@ function AccordionOptions(props) {
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/8';
     let response = "";
     response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
+    let response1=  await Axios.get(cluster_url).catch((error) => {console.log("Error accessing backend"+error); });
+    setError_url(response1.data.message);
     if(response !== "")
     {  
       setOutput(response.data);
@@ -58,8 +64,9 @@ function AccordionOptions(props) {
         <div style={{ display: 'flex' }}>
           <div style={{display: 'flex', flex: '1 1 0', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
             <SchemaInput eventKey={key}  onFileUpload={setFileContent}  schema={schema} setSchema={setSchema} toggle={toggle}  setToggle={setToggle} style={{flex: '1'}}  />
-            <Button variant="primary" size="sm" style={{flex: '0 0 0', marginLeft: '200px', marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
-            <Button variant="danger" size="sm" hidden={key === '9'} style={{flex: '0 0 0', marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>
+            <a target="_blank" rel="noopener noreferrer" href={error_url}  style={{color: 'red' , flex: '0 0 0', marginLeft: '100px', marginTop: '70px' }}> ERRORS </a> 
+            <Button variant="primary" size="sm" style={{flex: '0 0 0', marginLeft: '150px', marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
+            <Button variant="danger" size="sm" hidden={key === '9'} style={{flex: '0 0 0', marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>       
           </div>
           <ConsoleOutput>{ output }</ConsoleOutput>
         </div>
