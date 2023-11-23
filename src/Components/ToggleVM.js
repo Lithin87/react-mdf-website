@@ -42,8 +42,9 @@ function ToggleVM() {
    };
 
    
-   useEffect(() => {   if(!ctx.vmstatus) handleReset();
+   useEffect(() => {   
     
+    if(!ctx.vmstatus) handleReset();
     if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && ctx.plugin.length === 0 ) {
       const fetchData = async () => { if (await pluginListCall()) clearInterval(interval);};
       const interval = setInterval(fetchData, 5000);
