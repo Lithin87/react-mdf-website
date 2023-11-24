@@ -45,7 +45,8 @@ const field3 =   { "schema" :
   "name": "boots",
   "namespace": "ust",
   "type": "record"
-}
+},
+"url" : "https://kafkasinkcollector-bxlquyhk2q-uc.a.run.app"
 }
 
 const field4 = { "schema" : 
@@ -54,7 +55,8 @@ const field4 = { "schema" :
  "company": "UST",
  "age": "23",
  "account" : "BOOTS"
-}}
+},
+"url" : "https://kafkasinkcollector-bxlquyhk2q-uc.a.run.app"}
 
 
 const field5 ={
