@@ -17,7 +17,7 @@ function App() {
     const [checked, setChecked] = useState(false);
     const [radioValue, setRadioValue] = useState('1');
     const [plugin, setPlugin] = useState([]);
-    const [rate, setRate] = useState(120);
+    const [rate, setRate] = useState(60);
     const [schema, setSchema] = useState('');
 
     const activeCtx = {

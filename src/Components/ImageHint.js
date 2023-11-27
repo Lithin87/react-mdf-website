@@ -46,7 +46,7 @@ const field3 =   { "schema" :
   "namespace": "ust",
   "type": "record"
 },
-"url" : "https://kafkasinkcollector-bxlquyhk2q-uc.a.run.app"
+"url" : "https://target-400-bxlquyhk2q-uc.a.run.app"
 }
 
 const field4 = { "schema" : 
@@ -56,7 +56,7 @@ const field4 = { "schema" :
  "age": "23",
  "account" : "BOOTS"
 },
-"url" : "https://kafkasinkcollector-bxlquyhk2q-uc.a.run.app"}
+"url" : "https://target-400-bxlquyhk2q-uc.a.run.app"}
 
 
 const field5 ={
@@ -68,14 +68,25 @@ const field5 ={
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "io.confluent.connect.avro.AvroConverter",
     "topics": "Template_Schema",
-    "http.api.url": "https://kafkasinkcollector-bxlquyhk2q-uc.a.run.app",
+    "http.api.url": "https://target-400-bxlquyhk2q-uc.a.run.app",
     "request.method": "post",
+    "reporter.result.topic.name": "success_topic",
     "reporter.result.topic.replication.factor": "1",
+    "reporter.result.topic.partitions": "1",
+    "reporter.error.topic.name": "error_topic",
     "reporter.error.topic.replication.factor": "1",
+    "reporter.error.topic.partitions": "1",
     "reporter.bootstrap.servers": "broker:29092",
     "tasks.max": "1",
+    "behavior.on.error": "log",
+    "max.retries": "1",
+    "retry.backoff.ms": "1",
     "consumer.max.poll.records":"1",
-    "max.interval" : "500"
+    "errors.deadletterqueue.topic.name": "dead_topic",
+    "errors.deadletterqueue.topic.replication.factor": "1",
+    "errors.tolerance": "all",
+    "errors.retry.timeout": "0",
+    "errors.retry.delay.max.ms": "0"
   }
 }
 

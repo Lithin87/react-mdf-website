@@ -38,7 +38,7 @@ function ToggleVM() {
         .catch(error => {
           console.error('IP Address fetch went wrong!', error);
         });
-      alert(on_off);}
+    }
    };
 
    

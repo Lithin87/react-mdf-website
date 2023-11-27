@@ -12,12 +12,12 @@ function OffcanvasVM({children}) {
   const handleShow = () => ctx.setShow(true);
   
   useEffect(() => {
-  if(ctx.radioValue !== '2' && ctx.checked === true)
+  if( ctx.checked === true && ctx.radioValue !== '3')
   {
-    let totalDuration = 3 * 17 * 1000;
+    let totalDuration = 3 * 18 * 1000;
 
-    if(ctx.radioValue === '1')
-     totalDuration = 3 * 14 * 1000;
+    if(ctx.radioValue === '2')
+     totalDuration = 3 * 74 * 1000;
   
     let startTime = Date.now();
     const interval = setInterval(() => {
@@ -35,7 +35,8 @@ function OffcanvasVM({children}) {
        clearInterval(interval);
       };
   }else ctx.setNow(100);
-  }, [ctx.checked, ctx.radioValue === '1']);
+  }, [ctx.checked, ctx.radioValue]);
+
 
   return (
     <>

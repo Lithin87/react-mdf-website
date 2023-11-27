@@ -7,7 +7,7 @@ function RangeExample() {
 
   const ctx = useContext(AppContext);
 
-  const [value, setValue] = useState(0); 
+  const [value, setValue] = useState(60); 
    
 
   const handleRangeChange = (e) => {
@@ -18,8 +18,9 @@ function RangeExample() {
 
   return (
     <>
-      <Form.Label style={{ color: 'blue' }}>Rate Limiter (  def : 120pm )</Form.Label>
-      <Form.Range value={value} disabled={ ctx.radioValue !== '3'} onChange={handleRangeChange} />
+      <Form.Label style={{ color: 'blue' }}>Rate Limiter (  def : 60pm )</Form.Label>
+      {/* <Form.Range value={value} disabled={ ctx.radioValue !== '3'} onChange={handleRangeChange} /> */}
+      <Form.Range value={value}  onChange={handleRangeChange} />
       <p>Selected Value: {ctx.rate}</p>
     </>
   );
