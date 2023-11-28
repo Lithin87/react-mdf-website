@@ -18,6 +18,7 @@ function App() {
     const [plugin, setPlugin] = useState([]);
     const [rate, setRate] = useState(60);
     const [schema, setSchema] = useState('');
+    const [url, setUrl] = useState('https://target-400-bxlquyhk2q-uc.a.run.app');
 
     const activeCtx = {
         now : now, setNow : setNow,
@@ -27,7 +28,8 @@ function App() {
         radioValue : radioValue, setRadioValue : setRadioValue,
         plugin : plugin, setPlugin : setPlugin,
         rate : rate, setRate : setRate,
-        schema : schema, setSchema : setSchema
+        schema : schema, setSchema : setSchema,
+        url : url , setUrl : setUrl
     };
 
     return (

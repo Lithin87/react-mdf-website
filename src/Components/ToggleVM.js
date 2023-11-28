@@ -4,6 +4,7 @@ import Axios from 'axios';
 import RangeExample from './Slider';
 import bootOn from '../images/power-button.png';
 import AppContext from '../Contexts/app-context';
+import Form from 'react-bootstrap/Form';
 
 
 function ToggleVM() {
@@ -41,7 +42,12 @@ function ToggleVM() {
     }
    };
 
-   
+   const handleURL = async (e) => {
+    ctx.setUrl(e.currentTarget.value);
+   }
+
+
+
    useEffect(() => {   
     
     if(!ctx.vmstatus) handleReset();
@@ -103,6 +109,8 @@ function ToggleVM() {
     <br /> <br /> <br /> <br />
     <RangeExample/>
     <br /> <br />
+
+    <Form.Control type="text" placeholder="Target URL" value={ctx.url} onChange={handleURL}/>
 
     </>
   );

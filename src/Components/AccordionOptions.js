@@ -20,12 +20,13 @@ function AccordionOptions(props) {
   const cluster_url = process.env.REACT_APP_BACKEND_HOST + '/services/7';
 
   const handleClick = async () => {
-    let final_schema = {};
+    let final_schema = { schema : "" , url : ctx.url};
+    console.log(final_schema);
 
     if(toggle === false)
-    if(fileContent === "") setOutput(p => p + "\nNo File Selected. Using Pre-Configured Data"); else final_schema = fileContent;
+    if(fileContent === "") setOutput(p => p + "\nNo File Selected. Using Pre-Configured Data"); else final_schema.schema = fileContent;
     else
-    if(schema === "") setOutput(p => p + "\nNo Schema Selected. Using Pre-Configured Data"); else final_schema = schema;
+    if(schema === "") setOutput(p => p + "\nNo Schema Selected. Using Pre-Configured Data"); else final_schema.schema = schema;
     
     let max_interval = (60 * 1000) / ctx.rate;
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval;
