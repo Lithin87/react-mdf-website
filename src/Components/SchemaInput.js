@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import MultiLineText from './MultiLineText';
-import ld from 'lodash';
 const jsonpath = require('jsonpath');
 
 const SchemaInput = (props) => {

@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import PanelContent from './Components/PanelContent';
 import MenuBar from './Components/MenuBar';
-import MultiLineText from './Components/MultiLineText';
 
 import { useState } from 'react';
 import AppContext from './Contexts/app-context';
