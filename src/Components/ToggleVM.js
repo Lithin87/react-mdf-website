@@ -49,8 +49,8 @@ function ToggleVM() {
 
 
    useEffect(() => {   
-    
     if(!ctx.vmstatus) handleReset();
+    
     if ( ctx.vmstatus && !ctx.vmstatus.includes("OFF")  && ctx.plugin.length === 0 ) {
       const fetchData = async () => { if (await pluginListCall()) clearInterval(interval);};
       const interval = setInterval(fetchData, 5000);
@@ -97,9 +97,8 @@ function ToggleVM() {
 
       <br/> <br/> <br /><br />
   
-   <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' }}>PLUGINS INSTALLED</span> 
-
-   <br /><br />
+   <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' }}>PLUGINS INSTALLED : </span> 
+      <br />
       <ListGroup>
       {ctx.plugin.map((item, index) => (
         <ListGroup.Item key={index} className="bg-light">{item}</ListGroup.Item>
@@ -110,6 +109,7 @@ function ToggleVM() {
     <RangeExample/>
     <br /> <br />
 
+    <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' }}>TARGET URL:</span>
     <Form.Control type="text" placeholder="Target URL" value={ctx.url} onChange={handleURL}/>
 
     </>

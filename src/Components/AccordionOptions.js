@@ -1,7 +1,7 @@
 import { Button , Accordion } from 'react-bootstrap';
 import Axios from 'axios';
 import AppContext from '../Contexts/app-context';
-import { useState, useContext} from 'react';
+import { useState, useContext, useEffect} from 'react';
 import ConsoleOutput from './ConsoleOutput';
 import SchemaInput from './SchemaInput';
 
@@ -14,18 +14,24 @@ function AccordionOptions(props) {
   const [schema, setSchema] = useState('');
   const [toggle, setToggle] = useState(false);
   const [error_url, setError_url] = useState("");
+  const [offset, setOffset] = useState(0);
+  const [operation, setOperation] = useState(false);
   
 
   const ctx = useContext(AppContext);
   const cluster_url = process.env.REACT_APP_BACKEND_HOST + '/services/7';
+  const offset_url = process.env.REACT_APP_BACKEND_HOST + '/services/10';
+
+  let decodedString1="---";
+  let interval = null;
 
   const handleClick = async () => {
-    let final_schema = {};
+    let final_schema = { schema : "" , url : ctx.url};
 
     if(toggle === false)
-    if(fileContent === "") setOutput(p => p + "\nNo File Selected. Using Pre-Configured Data"); else final_schema = fileContent;
+    if(fileContent === "") setOutput(p => p + "\nNo File Selected. Using Pre-Configured Data"); else final_schema.schema = fileContent;
     else
-    if(schema === "") setOutput(p => p + "\nNo Schema Selected. Using Pre-Configured Data"); else final_schema = schema;
+    if(schema === "") setOutput(p => p + "\nNo Schema Selected. Using Pre-Configured Data"); else final_schema.schema = schema;
     
     let max_interval = (60 * 1000) / ctx.rate;
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval;
@@ -35,21 +41,39 @@ function AccordionOptions(props) {
     setError_url(response1.data.message);
     if(response !== "")
     {  
-      setOutput(response.data);
+      setOperation(true);
+      setOutput(response.data);  
     }
    }
 
    const handleDelete = async () => { 
+    clearInterval(interval);
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/8';
     let response = "";
     response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
-    let response1=  await Axios.get(cluster_url).catch((error) => {console.log("Error accessing backend"+error); });
-    setError_url(response1.data.message);
     if(response !== "")
-    {  
+    {  setOperation(false);
       setOutput(response.data);
     }
     }
+
+
+
+    useEffect(() => {   
+
+      async function offsetfetch() {
+        let response2 = await Axios.get(offset_url).catch((error) => { console.log("Error accessing backend" + error); });
+        decodedString1 = response2.data.message[0];
+        console.log(decodedString1);
+        setOffset(decodedString1);
+      }
+
+      if( operation === true ) {
+        interval = setInterval( offsetfetch, 3000);
+        return () => clearInterval(interval); }
+      }
+    , [operation]);
+  
 
     const decodedString = fileContent.replace(/^"|"$/g, '').replace(/\\"/g, '"').replace(/\\r\\n/g, '\r\n');
 
@@ -64,7 +88,8 @@ function AccordionOptions(props) {
         <div style={{ display: 'flex' }}>
           <div style={{display: 'flex', flex: '1 1 0', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
             <SchemaInput eventKey={key}  onFileUpload={setFileContent}  schema={schema} setSchema={setSchema} toggle={toggle}  setToggle={setToggle} style={{flex: '1'}}  />
-            <a target="_blank" rel="noopener noreferrer" href={error_url}  style={{color: 'red' , flex: '0 0 0', marginLeft: '100px', marginTop: '70px' }}> ERRORS </a> 
+            <a target="_blank" rel="noopener noreferrer" href={error_url}  style={{color: 'red' , flex: '0 0 0', marginLeft: '100px', marginTop: '70px' }}> ERRORS  </a> 
+            <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' , flex: '0 0 0', marginLeft: '10px', marginTop: '70px'  }}>  {offset}</span>
             <Button variant="primary" size="sm" style={{flex: '0 0 0', marginLeft: '150px', marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
             <Button variant="danger" size="sm" hidden={key === '9'} style={{flex: '0 0 0', marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>       
           </div>

@@ -1,6 +1,6 @@
 import help from '../images/help.png';
 
-const field3 =   { "schema" : 
+const field3 = 
 {
   "connect.name": "ust.boots",
   "fields": [
@@ -45,18 +45,15 @@ const field3 =   { "schema" :
   "name": "boots",
   "namespace": "ust",
   "type": "record"
-},
-"url" : "https://target-400-bxlquyhk2q-uc.a.run.app"
 }
 
-const field4 = { "schema" : 
+const field4 = 
 {
  "name": "lithin",
  "company": "UST",
  "age": "23",
  "account" : "BOOTS"
-},
-"url" : "https://target-400-bxlquyhk2q-uc.a.run.app"}
+}
 
 
 const field5 ={
@@ -90,10 +87,7 @@ const field5 ={
   }
 }
 
-const field9 = 
-{
-  "data": "pls give a  sample json message with context of a shopping with 20 fields with valid values and with mandatory key named account"
-}
+const field9 = "pls give a  sample json message with context of a shopping with 20 fields with valid values and with mandatory key named account"
 
 function ImageHint({ htmlFor, setSchema, setToggle}) {
 
@@ -113,7 +107,7 @@ function ImageHint({ htmlFor, setSchema, setToggle}) {
    const handleClick = async () => {
    setToggle(true);
    const help = help_map.get(index);
-   const formattedJSON = JSON.stringify(help, null, 2); 
+   const formattedJSON = index === '9' ? help : JSON.stringify(help, null, 2); 
    setSchema(formattedJSON);
   };
 

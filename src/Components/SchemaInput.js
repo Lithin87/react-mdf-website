@@ -50,7 +50,7 @@ function FileInputExample({ onFileUpload ,id,checked }) {
             if( name.split(" ")[0] === "200")
             {
               let body = jsonpath.value(fileContent, `$.item[${i}].request.body.raw`);
-              onFileUpload(JSON.stringify({ "schema" : body })); 
+              onFileUpload(body); 
               break;
             }
           }}
