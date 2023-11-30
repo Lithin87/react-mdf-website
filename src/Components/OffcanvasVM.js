@@ -14,10 +14,10 @@ function OffcanvasVM({children}) {
   useEffect(() => {
   if( ctx.checked === true && ctx.radioValue !== '3')
   {
-    let totalDuration = 3 * 18 * 1000;
+    let totalDuration = 3 * 19 * 1000;
 
     if(ctx.radioValue === '2')
-     totalDuration = 3 * 74 * 1000;
+     totalDuration = 3 * 77 * 1000;
   
     let startTime = Date.now();
     const interval = setInterval(() => {
