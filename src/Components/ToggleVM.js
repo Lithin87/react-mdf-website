@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { Image ,ButtonGroup, ToggleButton, ProgressBar, ListGroup } from 'react-bootstrap';
 import Axios from 'axios';
 import RangeExample from './Slider';
@@ -26,7 +26,7 @@ function ToggleVM() {
      { name: 'READY', value: '3' },
   ];
 
-  const handleClickToggleButton = async (e) => { 
+  const handleClickToggleButton = useCallback( async (e) => { 
       ctx.setChecked(e.currentTarget.checked);
       const on_off = e.currentTarget.checked === true ? 1 : 6;
       const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ on_off;
@@ -40,7 +40,7 @@ function ToggleVM() {
           console.error('IP Address fetch went wrong!', error);
         });
     }
-   };
+   },[ctx]);
 
    const handleURL = async (e) => {
     ctx.setUrl(e.currentTarget.value);

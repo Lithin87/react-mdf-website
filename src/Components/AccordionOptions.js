@@ -1,7 +1,7 @@
 import { Button , Accordion } from 'react-bootstrap';
 import Axios from 'axios';
 import AppContext from '../Contexts/app-context';
-import { useState, useContext, useEffect} from 'react';
+import { useState, useContext, useEffect, useCallback} from 'react';
 import ConsoleOutput from './ConsoleOutput';
 import SchemaInput from './SchemaInput';
 
@@ -25,7 +25,7 @@ function AccordionOptions(props) {
   let decodedString1="---";
   let interval = null;
 
-  const handleClick = async () => {
+  const handleClick = useCallback ( async () => {
     let final_schema = { schema : "" , url : ctx.url};
 
     if(toggle === false)
@@ -33,7 +33,7 @@ function AccordionOptions(props) {
     else
     if(schema === "") setOutput(p => p + "\nNo Schema Selected. Using Pre-Configured Data"); else final_schema.schema = schema;
     
-    let max_interval = (60 * 1000) / ctx.rate;
+    let max_interval = Math.round((60 * 1000) / ctx.rate);
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval;
     let response = "";
     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
@@ -44,9 +44,9 @@ function AccordionOptions(props) {
       setOperation(true);
       setOutput(response.data);  
     }
-   }
+   },[cluster_url, ctx.rate, ctx.url, fileContent, key, schema, toggle]);
 
-   const handleDelete = async () => { 
+   const handleDelete = useCallback( async () => { 
     clearInterval(interval);
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/8';
     let response = "";
@@ -55,7 +55,7 @@ function AccordionOptions(props) {
     {  setOperation(false);
       setOutput(response.data);
     }
-    }
+    },[interval])
 
 
 

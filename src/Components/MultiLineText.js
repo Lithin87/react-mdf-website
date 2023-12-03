@@ -1,11 +1,11 @@
-import React  from 'react';
+import React, { useCallback }  from 'react';
 import ImageHint from './ImageHint';
 
 function MultiLineText( props) {
 
-  const handleInputChange = (event) => {
+  const handleInputChange = useCallback( (event) => {
     props.setSchema(event.target.value);
-  };
+  },[props]);
 
   return (
     <div style={{ display: props.isChecked ? 'block' : 'none' }}>

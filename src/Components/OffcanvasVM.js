@@ -1,4 +1,4 @@
-import {  useEffect , useContext} from 'react';
+import {  useEffect , useContext, useCallback} from 'react';
 import { Button , Offcanvas } from 'react-bootstrap';
 import ToggleVM from './ToggleVM';
 import AppContext from '../Contexts/app-context';
@@ -8,8 +8,8 @@ function OffcanvasVM({children}) {
 
   const ctx = useContext(AppContext);
   
-  const handleClose = () => ctx.setShow(false);
-  const handleShow = () => ctx.setShow(true);
+  const handleClose = useCallback( () => ctx.setShow(false),[ctx]);
+  const handleShow = useCallback( () => ctx.setShow(true),[ctx]);
   
   useEffect(() => {
   if( ctx.checked === true && ctx.radioValue !== '3')

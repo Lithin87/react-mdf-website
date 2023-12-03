@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Form } from 'react-bootstrap';
 import MultiLineText from './MultiLineText';
 const jsonpath = require('jsonpath');
 
 const SchemaInput = (props) => {
  
-  const handleToggle = () => {
-    props.setToggle(p => { if(p === false)  props.onFileUpload(""); return !p});
-  };
+  const setToggle = props.setToggle;
+  const onFileUpload = props.onFileUpload;
+
+  const handleToggle = useCallback( () => {
+    setToggle(p => { if(p === false)  onFileUpload(""); return !p});
+  },[setToggle,onFileUpload]);
 
   return (
   <div style={{display: 'flex' , flexDirection: 'column' }}> 
