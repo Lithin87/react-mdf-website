@@ -74,7 +74,7 @@ function AccordionOptions(props) {
     useEffect(() => {   
       async function offsetfetch() {
         let response2 = await Axios.get(offset_url).catch((error) => { console.log("Error accessing backend" + error); });
-        setOffset(response2.data.message[1]+" "+response2.data.message[0]);
+        setOffset(response2.data.message[0]+" "+response2.data.message[1]);
       }
 
       if( operation === true ) {
