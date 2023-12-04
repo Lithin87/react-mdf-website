@@ -49,8 +49,11 @@ function AccordionOptions(props) {
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval;
     let response = "";
     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
-    let response1 =  await Axios.get(cluster_url).catch((error) => {console.log("Error accessing backend"+error); });
-    setError_url(response1.data.message);
+    if(key !== '9')
+    {
+        let response1 =  await Axios.get(cluster_url).catch((error) => {console.log("Error accessing backend"+error); });
+        setError_url(response1.data.message);
+    }
     if(response !== "" && response.data !== null)
     {  
       setOperation(true);
