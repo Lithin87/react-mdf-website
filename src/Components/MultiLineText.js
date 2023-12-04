@@ -1,17 +1,21 @@
-import React, { useCallback }  from 'react';
+import React, { useCallback , useContext }  from 'react';
 import ImageHint from './ImageHint';
+import PanelContext from '../Contexts/panel-context';
 
 function MultiLineText( props) {
 
+  const pctx = useContext(PanelContext);
+  const setSchema = pctx.setSchema;
+
   const handleInputChange = useCallback( (event) => {
-    props.setSchema(event.target.value);
-  },[props]);
+    setSchema(event.target.value);
+  },[setSchema]);
 
   return (
-    <div style={{ display: props.isChecked ? 'block' : 'none' }}>
-      <h6 style={{ color: 'blue' }}>PASTE SCHEMA : <ImageHint htmlFor={props.eventKey} setSchema={props.setSchema} setToggle={props.setToggle}/></h6>
+    <div style={{ display: pctx.toggle ? 'block' : 'none' }}>
+      <h6 style={{ color: 'blue' }}>PASTE SCHEMA : <ImageHint htmlFor={props.eventKey} /></h6>
       <textarea
-        value={props.schema}
+        value={pctx.schema}
         onChange={handleInputChange}
         rows={8} 
         cols={60} 

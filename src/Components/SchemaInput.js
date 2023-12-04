@@ -1,16 +1,16 @@
-import React, { useCallback } from 'react';
+import React, { useCallback , useContext } from 'react';
 import { Form } from 'react-bootstrap';
 import MultiLineText from './MultiLineText';
+import PanelContext from '../Contexts/panel-context';
 const jsonpath = require('jsonpath');
 
 const SchemaInput = (props) => {
  
-  const setToggle = props.setToggle;
-  const onFileUpload = props.onFileUpload;
+  const pctx = useContext(PanelContext);
 
   const handleToggle = useCallback( () => {
-    setToggle(p => { if(p === false)  onFileUpload(""); return !p});
-  },[setToggle,onFileUpload]);
+    pctx.setToggle(p => { if(p === false)  pctx.setFileContent(""); return !p});
+  },[pctx.setToggle, pctx.setFileContent]);
 
   return (
   <div style={{display: 'flex' , flexDirection: 'column' }}> 
@@ -19,21 +19,23 @@ const SchemaInput = (props) => {
         type="switch"
         id="custom-switch"
         label="EditableText"
-        checked={props.toggle}
+        checked={pctx.toggle}
         onChange={handleToggle}
       />
     </Form>
 
-    <MultiLineText isChecked= {props.toggle} setToggle={props.setToggle}  schema={props.schema} setSchema={props.setSchema} eventKey={props.eventKey} ></MultiLineText>
+    <MultiLineText eventKey={props.eventKey} />
 
-    <FileInputExample  id={props.eventKey} onFileUpload={props.onFileUpload}   checked= {props.toggle} />
+    <FileInputExample  id={props.eventKey} />
     </div>
   );
 };
 
 export default SchemaInput;
 
-function FileInputExample({ onFileUpload ,id,checked }) {
+function FileInputExample({ id }) {
+
+  const pctx = useContext(PanelContext);
 
   const handleFileChange = (event) => {
       const selectedFile = event.target.files[0]; 
@@ -53,11 +55,11 @@ function FileInputExample({ onFileUpload ,id,checked }) {
             if( name.split(" ")[0] === "200")
             {
               let body = jsonpath.value(fileContent, `$.item[${i}].request.body.raw`);
-              onFileUpload(body); 
+              pctx.setFileContent(body); 
               break;
             }
           }}
-          else onFileUpload(fileContent); 
+          else pctx.setFileContent(fileContent); 
 
         };
   
@@ -66,7 +68,7 @@ function FileInputExample({ onFileUpload ,id,checked }) {
     };
 
   return (
-    <Form style={{ display: checked ? 'none' : 'block' }}>
+    <Form style={{ display: pctx.toggle ? 'none' : 'block' }}>
       <Form.Group controlId={id} className="mb-3">
         <Form.Label style={{ color: 'blue' }}>CHOOSE A FILE</Form.Label>
         <Form.Control type="file" onChange={handleFileChange} />

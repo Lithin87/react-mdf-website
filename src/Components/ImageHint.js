@@ -1,4 +1,6 @@
 import help from '../images/help.png';
+import PanelContext from '../Contexts/panel-context';
+import  { useContext }  from 'react';
 
 const field3 = 
 {
@@ -89,9 +91,11 @@ const field5 ={
 
 const field9 = "pls give a  sample json message with context of a shopping with 20 fields with valid values and with mandatory key named account"
 
-function ImageHint({ htmlFor, setSchema, setToggle}) {
+function ImageHint({ htmlFor }) {
 
    const index = htmlFor.slice(-1)
+   const pctx = useContext(PanelContext);
+
 
    const help_map = new Map();
    help_map.set('1', { "Msg" : "Once VM created it needs a 3 mins to be Ready" });
@@ -105,10 +109,10 @@ function ImageHint({ htmlFor, setSchema, setToggle}) {
    help_map.set('9', field9);
 
    const handleClick = async () => {
-   setToggle(true);
+    pctx.setToggle(true);
    const help = help_map.get(index);
    const formattedJSON = index === '9' ? help : JSON.stringify(help, null, 2); 
-   setSchema(formattedJSON);
+   pctx.setSchema(formattedJSON);
   };
 
  
