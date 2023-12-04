@@ -15,7 +15,7 @@ function AccordionOptions(props) {
   const [schema, setSchema] = useState('');
   const [toggle, setToggle] = useState(false);
   const [error_url, setError_url] = useState("");
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState("--");
   const [operation, setOperation] = useState(false);
   
   const panelCtx = {
@@ -34,7 +34,7 @@ function AccordionOptions(props) {
   const cluster_url = process.env.REACT_APP_BACKEND_HOST + '/services/7';
   const offset_url = process.env.REACT_APP_BACKEND_HOST + '/services/10';
 
-  let decodedString1="---";
+ 
   let interval = null;
 
   const handleClick = useCallback ( async () => {
@@ -74,9 +74,7 @@ function AccordionOptions(props) {
     useEffect(() => {   
       async function offsetfetch() {
         let response2 = await Axios.get(offset_url).catch((error) => { console.log("Error accessing backend" + error); });
-        decodedString1 = response2.data.message[0];
-        // console.log(decodedString1);
-        setOffset(decodedString1);
+        setOffset(response2.data.message[1]+" "+response2.data.message[0]);
       }
 
       if( operation === true ) {

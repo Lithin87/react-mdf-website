@@ -40,7 +40,7 @@ function App() {
                 <nav> <h1>Mimic Data Framework</h1></nav>
                 <MenuBar/>
                 <PanelContent/>
-                <footer> © 2023 My Website </footer>
+                <footer> © 2023 Boots </footer>
             </div>
 
             </div>
