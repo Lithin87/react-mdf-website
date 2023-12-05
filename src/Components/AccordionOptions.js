@@ -2,7 +2,7 @@ import { Button , Accordion } from 'react-bootstrap';
 import Axios from 'axios';
 import AppContext from '../Contexts/app-context';
 import PanelContext from '../Contexts/panel-context';
-import { useState, useContext, useEffect, useCallback} from 'react';
+import { useState, useContext, useEffect, useCallback } from 'react';
 import ConsoleOutput from './ConsoleOutput';
 import SchemaInput from './SchemaInput';
 
@@ -54,7 +54,7 @@ function AccordionOptions(props) {
         let response1 =  await Axios.get(cluster_url).catch((error) => {console.log("Error accessing backend"+error); });
         setError_url(response1.data.message);
     }
-    if(response !== "" && response.data !== null)
+    if(response !== undefined && response.data !== null)
     {  
       setOperation(true);
       setOutput(response.data);  
