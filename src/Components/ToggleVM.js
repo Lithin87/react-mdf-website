@@ -112,6 +112,10 @@ function ToggleVM() {
     <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' }}>TARGET URL:</span>
     <Form.Control type="text" placeholder="Target URL" value={ctx.url} onChange={handleURL}/>
 
+    <br /> <br />
+    <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' }}>REPETITIONs :</span>
+    <Form.Control type="text" placeholder="Total Requests" />
+
     </>
   );
 
