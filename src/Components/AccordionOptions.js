@@ -5,7 +5,7 @@ import PanelContext from '../Contexts/panel-context';
 import { useState, useContext, useEffect, useCallback } from 'react';
 import ConsoleOutput from './ConsoleOutput';
 import SchemaInput from './SchemaInput';
-
+import Spinner from 'react-bootstrap/Spinner';
 
 function AccordionOptions(props) {
 
@@ -64,20 +64,14 @@ function AccordionOptions(props) {
    const handleDelete = useCallback( async () => { 
     clearInterval(interval);
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/8';
-    let response = "";
-    response =  await Axios.get(url_r).catch((error) => {console.log("Error accessing backend"+error); });
-    if(response !== "")
-    {  setOperation(false);
-      setOutput(response.data);
-    }
+    Axios.get(url_r).then(r => {setOperation(false);setOutput(r.data)}).catch((error) => {console.log("Error accessing backend"+error) });
     },[interval])
 
 
 
     useEffect(() => {   
       async function offsetfetch() {
-        let response2 = await Axios.get(offset_url).catch((error) => { console.log("Error accessing backend" + error); });
-        setOffset(response2.data.message[0]+" "+response2.data.message[1]);
+         Axios.get(offset_url).then(p => setOffset(p.data.message[0]+" "+p.data.message[1])).catch((error) => { console.log("Error accessing backend" + error); });
       }
 
       if( operation === true ) {
@@ -106,6 +100,7 @@ function AccordionOptions(props) {
             <Button variant="primary" size="sm" style={{flex: '0 0 0', marginLeft: '150px', marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
             <Button variant="danger" size="sm" hidden={key === '9'} style={{flex: '0 0 0', marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>       
           </div>
+           <Spinner animation="grow" variant="success"  hidden={!operation}/> 
           <ConsoleOutput>{ output }</ConsoleOutput>
         </div>
 
