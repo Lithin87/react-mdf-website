@@ -93,15 +93,25 @@ function AccordionOptions(props) {
         <Accordion.Body>
 
         <div style={{ display: 'flex' }}>
-          <div style={{display: 'flex', flex: '1 1 0', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
+          <div style={{display: 'flex', flex: '2', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
             <SchemaInput eventKey={key}  style={{flex: '1'}}  />
-            <a target="_blank" rel="noopener noreferrer" href={error_url}  style={{color: 'red' , flex: '0 0 0', marginLeft: '100px', marginTop: '70px' }}> ERRORS  </a> 
-            <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' , flex: '0 0 0', marginLeft: '10px', marginTop: '70px'  }}>  {offset}</span>
-            <Button variant="primary" size="sm" style={{flex: '0 0 0', marginLeft: '150px', marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
-            <Button variant="danger" size="sm" hidden={key === '9'} style={{flex: '0 0 0', marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>       
           </div>
-           <Spinner animation="grow" variant="success"  hidden={!operation}/> 
-          <ConsoleOutput>{ output }</ConsoleOutput>
+
+          <div style={{display: 'flex', flex: '2', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
+            <Button variant="primary" size="sm" style={{flex: '0 0 0', marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
+            <Button variant="danger" size="sm" hidden={key === '9'} style={{flex: '0 0 0', marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>  
+            <a target="_blank" rel="noopener noreferrer" href={error_url}  style={{color: 'red' , flex: '0 0 0', marginLeft: '100px', marginTop: '30px' }}> ERRORS  </a> 
+            <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' , flex: '0 0 0', marginLeft: '10px', marginTop: '30px'  }}>  {offset}</span>     
+          </div>
+
+          <div style={{display: 'flex', flex: '1', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
+            <div style={{display: 'flex', flex: '1', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
+              <Spinner animation="grow" variant="success"  hidden={!operation}/> 
+            </div>
+            <div style={{display: 'flex', flex: '5', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
+              <ConsoleOutput>{ output }</ConsoleOutput>
+            </div>
+          </div>
         </div>
 
         <div style={{ display: fileContent === "" ? 'none' : 'block' }}>

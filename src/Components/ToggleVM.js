@@ -62,20 +62,8 @@ function ToggleVM() {
 
   return (
     <>
-      <br /> <br />  
-      <ToggleButton
-        className="mb-2"
-        id="toggle-check"
-        type="checkbox"
-        variant="outline-primary"
-        checked={ ctx.checked}
-        value="1"
-        onChange={handleClickToggleButton}
-      >
-        <Image src={bootOn} width="50" height="40" alt="Small Image" rounded thumbnail /> BOOT ON </ToggleButton>
-
-      <br/><br/><br />
-    
+    <div style={{ display: 'flex' , flexDirection: 'column' }}>
+      
       CURRENT STATUS :  <br/>
       <ButtonGroup>
         
@@ -94,8 +82,23 @@ function ToggleVM() {
         ))}
       </ButtonGroup><p/>
       <ProgressBar animated now={ ctx.now } label={`${Math.round( ctx.now)}%`} />
+       
+      <div style={{ marginLeft: '95px' }}>
+      <br /> <br /> 
+      <ToggleButton
+        className="mb-2"
+        id="toggle-check"
+        type="checkbox"
+        variant="outline-primary"
+        checked={ ctx.checked}
+        value="1"
+        onChange={handleClickToggleButton}
+      >
+        <Image src={bootOn} width="50" height="40" alt="Small Image" rounded thumbnail /> BOOT ON </ToggleButton> </div>
 
-      <br/> <br/> <br /><br />
+      </div>
+
+      <br/> <br/> 
   
    <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' }}>PLUGINS INSTALLED : </span> 
       <br />
@@ -114,7 +117,7 @@ function ToggleVM() {
 
     <br /> <br />
     <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' }}>REPETITIONs :</span>
-    <Form.Control type="text" placeholder="Total Requests" />
+    <Form.Control type="text" placeholder="Total Requests" value="1000"/>
 
     </>
   );
