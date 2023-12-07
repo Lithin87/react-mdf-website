@@ -93,11 +93,11 @@ function AccordionOptions(props) {
         <Accordion.Body>
 
         <div style={{ display: 'flex' }}>
-          <div style={{display: 'flex', flex: '2', alignItems: 'flex-start' }}>
+          <div style={{display: 'flex', flex: '3', alignItems: 'flex-start' }}>
             <SchemaInput eventKey={key}  style={{flex: '1'}}  />
           </div>
 
-          <div style={{display: 'flex', flex: '3', alignItems: 'flex-start' }}>
+          <div style={{display: 'flex', flex: '4', alignItems: 'flex-start' }}>
             <Button variant="primary" size="sm" style={{ marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
             <Button variant="danger" size="sm" hidden={key === '9'} style={{ marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>  
 
