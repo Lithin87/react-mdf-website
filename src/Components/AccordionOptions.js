@@ -71,7 +71,7 @@ function AccordionOptions(props) {
 
     useEffect(() => {   
       async function offsetfetch() {
-         Axios.get(offset_url).then(p => setOffset(p.data.message[0]+" "+p.data.message[1])).catch((error) => { console.log("Error accessing backend" + error); });
+         Axios.get(offset_url).then(p => setOffset(p.data.message)).catch((error) => { console.log("Error accessing backend" + error); });
       }
 
       if( operation === true ) {
@@ -89,28 +89,27 @@ function AccordionOptions(props) {
     <PanelContext.Provider value={panelCtx}>
     <Accordion >
       <Accordion.Item eventKey={key}>
-        <Accordion.Header >{props.children} </Accordion.Header>
+        <Accordion.Header >{props.children}  <Spinner animation="grow" variant="success"  hidden={!operation}/> </Accordion.Header>
         <Accordion.Body>
 
         <div style={{ display: 'flex' }}>
-          <div style={{display: 'flex', flex: '2', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
+          <div style={{display: 'flex', flex: '2', alignItems: 'flex-start' }}>
             <SchemaInput eventKey={key}  style={{flex: '1'}}  />
           </div>
 
-          <div style={{display: 'flex', flex: '2', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
-            <Button variant="primary" size="sm" style={{flex: '0 0 0', marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
-            <Button variant="danger" size="sm" hidden={key === '9'} style={{flex: '0 0 0', marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>  
-            <a target="_blank" rel="noopener noreferrer" href={error_url}  style={{color: 'red' , flex: '0 0 0', marginLeft: '100px', marginTop: '30px' }}> ERRORS  </a> 
-            <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' , flex: '0 0 0', marginLeft: '10px', marginTop: '30px'  }}>  {offset}</span>     
+          <div style={{display: 'flex', flex: '3', alignItems: 'flex-start' }}>
+            <Button variant="primary" size="sm" style={{ marginTop: '33px' }} onClick={handleClick}> SUBMIT </Button>
+            <Button variant="danger" size="sm" hidden={key === '9'} style={{ marginLeft: '20px', marginTop: '33px' }} onClick={handleDelete}> DELETE </Button>  
+
+            <div style={{display: 'flex', flex: '3', alignItems: 'flex-start' , flexDirection: 'column'}}>
+              <a target="_blank" rel="noopener noreferrer" href={error_url}  style={{color: 'red' ,  marginLeft: '100px', marginTop: '30px',  textDecoration: 'none' }}> ERRORS : {offset[0]} </a> 
+              <a target="_blank" rel="noopener noreferrer" href={error_url}  style={{color: 'green' ,  marginLeft: '100px', marginTop: '30px' , textDecoration: 'none'}}> SUCCESS : {offset[1]}</a> 
+            </div>
+
           </div>
 
-          <div style={{display: 'flex', flex: '1', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
-            <div style={{display: 'flex', flex: '1', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
-              <Spinner animation="grow" variant="success"  hidden={!operation}/> 
-            </div>
-            <div style={{display: 'flex', flex: '5', alignItems: 'flex-start' , alignContent: 'flex-start'}}>
-              <ConsoleOutput>{ output }</ConsoleOutput>
-            </div>
+          <div style={{display: 'flex', flex: '1' , alignItems: 'flex-start'}}>
+              <ConsoleOutput  >{ output }</ConsoleOutput>
           </div>
         </div>
 
