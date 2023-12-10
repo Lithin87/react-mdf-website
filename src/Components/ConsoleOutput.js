@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import PanelContext from '../Contexts/panel-context';
 
-function ConsoleOutput() {
+function ConsoleOutput({eventKey}) {
   const pctx = useContext(PanelContext);
   const message = pctx.output.message || '';
   const messagesEndRef = useRef(null);
@@ -23,7 +23,7 @@ function ConsoleOutput() {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [formattedMessages]);
+  }, [formattedMessages, eventKey !== '9']);
 
 
   const formatMessage = (message) => {
@@ -39,7 +39,7 @@ function ConsoleOutput() {
   };
 
   return (
-    <div style={{ height: '150px', overflowY: 'auto' }}>
+    <div style={{ height: eventKey === '9' ? 'auto' : '150px', overflowY: 'auto' }}>
     {formattedMessages}
     <div ref={messagesEndRef} />
   </div>

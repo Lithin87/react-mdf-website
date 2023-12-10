@@ -57,6 +57,7 @@ function AccordionOptions(props) {
     if(response !== undefined && response.data !== null)
     {  
       setOperation(true);
+      // console.log("RESPONMSE"+response.data)
       setOutput(response.data);  
     }
    },[cluster_url, ctx.rate, ctx.url, fileContent, key, schema, toggle]);
@@ -89,7 +90,7 @@ function AccordionOptions(props) {
     <PanelContext.Provider value={panelCtx}>
     <Accordion >
       <Accordion.Item eventKey={key}>
-        <Accordion.Header >{props.children}  <Spinner animation="grow" variant="success"  hidden={!operation}/> </Accordion.Header>
+        <Accordion.Header >{props.children}  <Spinner animation="grow" variant="success"  hidden={!operation || key === '9' }/> </Accordion.Header>
         <Accordion.Body>
 
         <div style={{ display: 'flex' }}>
@@ -109,7 +110,7 @@ function AccordionOptions(props) {
           </div>
 
           <div style={{display: 'flex', flex: '1.6' , alignItems: 'flex-start'}}>
-              <ConsoleOutput />
+              <ConsoleOutput eventKey={key}/>
           </div>
         </div>
 
