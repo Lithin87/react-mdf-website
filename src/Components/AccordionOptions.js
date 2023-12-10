@@ -75,7 +75,7 @@ function AccordionOptions(props) {
       }
 
       if( operation === true ) {
-        interval = setInterval( offsetfetch, 3000);
+        interval = setInterval( offsetfetch, 4000);
         return () => clearInterval(interval); }
       }
     , [operation === true && key !== '9']);
@@ -108,8 +108,8 @@ function AccordionOptions(props) {
 
           </div>
 
-          <div style={{display: 'flex', flex: '1' , alignItems: 'flex-start'}}>
-              <ConsoleOutput  >{ output }</ConsoleOutput>
+          <div style={{display: 'flex', flex: '1.6' , alignItems: 'flex-start'}}>
+              <ConsoleOutput />
           </div>
         </div>
 

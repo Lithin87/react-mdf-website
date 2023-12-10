@@ -1,23 +1,48 @@
-function ConsoleOutput({ children }) {
-  const message = children.message || '';
+import React, { useContext, useState, useEffect, useRef } from 'react';
+import PanelContext from '../Contexts/panel-context';
+
+function ConsoleOutput() {
+  const pctx = useContext(PanelContext);
+  const message = pctx.output.message || '';
+  const messagesEndRef = useRef(null);
+  const [formattedMessages, setFormattedMessages] = useState([]);
+
+  useEffect(() => {
+    const newMessages = message.split('\n').map((line, index) => (
+      <React.Fragment key={index}>
+        <span dangerouslySetInnerHTML={{ __html: formatMessage(line) }} />
+        <br />
+      </React.Fragment>
+    ));
+
+    setFormattedMessages(prevMessages => [...prevMessages, ...newMessages]);
+  }, [message]);
+
+  
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [formattedMessages]);
+
 
   const formatMessage = (message) => {
-    
     return message
-      .replace(/SourceConnector/g, '<span style="color: blue; font-size: larger;">SourceConnector</span>')
-      .replace(/DestinationConnector/g, '<span style="color: blue; font-size: larger;">DestinationConnector</span>')
-      .replace(/Created/g, '<span style="color: green; font-size: larger;">Created</span>')
-      .replace(/exists/g, '<span style="color: red; font-size: larger;">Created</span>')
-      .replace(/Deleted/g, '<span style="color: red; font-size: larger;">Deleted</span>')
-      .replace(/No Connectors present/g, '<span style="color: red; font-size: larger;">No Connectors present</span>')
+      .replace(/SourceConnector/g, '<span style="color: blue; font-size: larger; font-size: 1em;">SourceConnector</span>')
+      .replace(/DestinationConnector/g, '<span style="color: blue; font-size: larger; font-size: 1em;">DestinationConnector</span>')
+      .replace(/Datagen_file_schema/g, '')
+      .replace(/HttpSinkConnectorConnector_0/g, '')
+      .replace(/Created/g, '<span style="color: green; font-size: larger; font-size: 1em;">Created</span>')
+      .replace(/exists/g, '<span style="color: red; font-size: larger; font-size: 1em;">Created</span>')
+      .replace(/Deleted/g, '<span style="color: red; font-size: larger; font-size: 1em;">Deleted</span>')
+      .replace(/No Connectors present/g, '<span style="color: red; font-size: larger; font-size: 1em;">No Connectors present</span>');
   };
 
   return (
-    <div>
-      <pre>
-        <span dangerouslySetInnerHTML={{ __html: formatMessage(message) }} />
-      </pre>
-    </div>
+    <div style={{ height: '150px', overflowY: 'auto' }}>
+    {formattedMessages}
+    <div ref={messagesEndRef} />
+  </div>
   );
 }
 
