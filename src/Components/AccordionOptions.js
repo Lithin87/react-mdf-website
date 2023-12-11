@@ -38,7 +38,7 @@ function AccordionOptions(props) {
   let interval = null;
 
   const handleClick = useCallback ( async () => {
-    let final_schema = { schema : "" , url : ctx.url};
+    let final_schema = { schema : "" , url : ctx.url };
 
     if(toggle === false)
     if(fileContent === "") setOutput(p => p + "\nNo File Selected. Using Pre-Configured Data"); else final_schema.schema = fileContent;
@@ -46,21 +46,30 @@ function AccordionOptions(props) {
     if(schema === "") setOutput(p => p + "\nNo Schema Selected. Using Pre-Configured Data"); else final_schema.schema = schema;
     
     let max_interval = Math.round((60 * 1000) / ctx.rate);
-    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval;
-    let response = "";
+    let iter  = ctx.iteration ?? -1;
+    const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval + '&set=' + iter ;
+    let response = {};
+
+    if(key !== '9')
     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
+    else
+    {
+     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
+    //  console.dir(response.data.message.req4_res , { depth :null})
+    //  console.dir(response.data.message.matches , { depth :null})
+    }
+
     if(key !== '9')
     {
         let response1 =  await Axios.get(cluster_url).catch((error) => {console.log("Error accessing backend"+error); });
         setError_url(response1.data.message);
     }
-    if(response !== undefined && response.data !== null)
+      if(response !== undefined && response.data !== null)
     {  
       setOperation(true);
-      // console.log("RESPONMSE"+response.data)
       setOutput(response.data);  
     }
-   },[cluster_url, ctx.rate, ctx.url, fileContent, key, schema, toggle]);
+   },[cluster_url, ctx.rate, ctx.iteration ,ctx.url, fileContent, key, schema, toggle]);
 
    const handleDelete = useCallback( async () => { 
     clearInterval(interval);
@@ -76,7 +85,7 @@ function AccordionOptions(props) {
       }
 
       if( operation === true ) {
-        interval = setInterval( offsetfetch, 4000);
+        interval = setInterval( offsetfetch, 5000);
         return () => clearInterval(interval); }
       }
     , [operation === true && key !== '9']);

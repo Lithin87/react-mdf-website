@@ -45,8 +45,10 @@ function ToggleVM() {
    const handleURL = async (e) => {
     ctx.setUrl(e.currentTarget.value);
    }
-
-
+   
+   const handleIteration = async (e) => {
+    ctx.setIteration(e.currentTarget.value);
+   }
 
    useEffect(() => {   
     if(!ctx.vmstatus) handleReset();
@@ -117,7 +119,8 @@ function ToggleVM() {
 
     <br /> <br />
     <span style={{ fontFamily: 'Tahoma, Geneva, sans-serif' }}>REPETITIONs :</span>
-    <Form.Control type="text" placeholder="Total Requests" value="1000"/>
+    <Form.Control type="text" placeholder="Total Requests" value={ctx.iteration} onChange={handleIteration}/>
+
 
     </>
   );

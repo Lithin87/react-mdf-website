@@ -19,6 +19,7 @@ function App() {
     const [rate, setRate] = useState(60);
     const [schema, setSchema] = useState('');
     const [url, setUrl] = useState('https://target-400-bxlquyhk2q-uc.a.run.app');
+    const [iteration, setIteration] = useState();
 
     const activeCtx = {
         now , setNow ,
@@ -29,7 +30,8 @@ function App() {
         plugin , setPlugin ,
         rate, setRate ,
         schema , setSchema ,
-        url  , setUrl 
+        url  , setUrl ,
+        iteration , setIteration
     };
 
     return (

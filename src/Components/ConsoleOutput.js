@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
 import PanelContext from '../Contexts/panel-context';
 
 function ConsoleOutput({eventKey}) {
@@ -6,13 +6,17 @@ function ConsoleOutput({eventKey}) {
   const message = pctx.output.message || '';
   const messagesEndRef = useRef(null);
   const [formattedMessages, setFormattedMessages] = useState([]);
+  const indexCounter = useRef(0);
 
   useEffect(() => {
-    const newMessages = message.split('\n').map((line, index) => (
-      <React.Fragment key={index}>
-        <span dangerouslySetInnerHTML={{ __html: formatMessage(line) }} />
-        <br />
-      </React.Fragment>
+    const newMessages = message.split('\n').map((line) => (
+
+      line.trim() !== '' && (
+        <React.Fragment key={indexCounter.current++}>
+          <span dangerouslySetInnerHTML={{ __html: formatMessage(line) }} />
+          <br />
+        </React.Fragment>
+      )
     ));
 
     setFormattedMessages(prevMessages => [...prevMessages, ...newMessages]);
@@ -38,10 +42,18 @@ function ConsoleOutput({eventKey}) {
       .replace(/No Connectors present/g, '<span style="color: red; font-size: larger; font-size: 1em;">No Connectors present</span>');
   };
 
+  const divStyle = useMemo(() => {
+    return {
+      height: eventKey === '9' ? 'auto' : '150px',
+      overflowY: 'auto',
+    };
+  }, [eventKey]);
+
+  
   return (
-    <div style={{ height: eventKey === '9' ? 'auto' : '150px', overflowY: 'auto' }}>
+    <div style={divStyle}>
     {formattedMessages}
-    <div ref={messagesEndRef} />
+    <div  ref={messagesEndRef} />
   </div>
   );
 }
