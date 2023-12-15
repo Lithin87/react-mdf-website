@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import PanelContent from './Components/PanelContent';
 import MenuBar from './Components/MenuBar';
+// import WebSocketClient from './Components/WebSocketClient';
+
 
 import { useState } from 'react';
 import AppContext from './Contexts/app-context';
@@ -20,6 +22,7 @@ function App() {
     const [schema, setSchema] = useState('');
     const [url, setUrl] = useState('https://target-400-bxlquyhk2q-uc.a.run.app');
     const [iteration, setIteration] = useState();
+    const [aichat, setAichat] = useState();
 
     const activeCtx = {
         now , setNow ,
@@ -31,7 +34,8 @@ function App() {
         rate, setRate ,
         schema , setSchema ,
         url  , setUrl ,
-        iteration , setIteration
+        iteration , setIteration,
+        aichat , setAichat
     };
 
     return (
@@ -42,6 +46,7 @@ function App() {
                 <nav> <h1>Mimic Data Framework</h1></nav>
                 <MenuBar/>
                 <PanelContent/>
+                {/* <WebSocketClient /> */}
                 <footer> © 2023 Boots </footer>
             </div>
 

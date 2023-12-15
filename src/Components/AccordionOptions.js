@@ -7,6 +7,7 @@ import ConsoleOutput from './ConsoleOutput';
 import SchemaInput from './SchemaInput';
 import Spinner from 'react-bootstrap/Spinner';
 
+
 function AccordionOptions(props) {
 
   let key = props.eventKey;
@@ -50,15 +51,8 @@ function AccordionOptions(props) {
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval + '&set=' + iter ;
     let response = {};
 
-    if(key !== '9')
     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
-    else
-    {
-     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
-    //  console.dir(response.data.message.req4_res , { depth :null})
-    //  console.dir(response.data.message.matches , { depth :null})
-    }
-
+   
     if(key !== '9')
     {
         let response1 =  await Axios.get(cluster_url).catch((error) => {console.log("Error accessing backend"+error); });
@@ -66,10 +60,26 @@ function AccordionOptions(props) {
     }
       if(response !== undefined && response.data !== null)
     {  
-      setOperation(true);
-      setOutput(response.data);  
+      newFunction(response.data);  
     }
    },[cluster_url, ctx.rate, ctx.iteration ,ctx.url, fileContent, key, schema, toggle]);
+
+let ghj = ctx.aichat;
+
+   useEffect(() => 
+   {   
+    // console.dir(ghj, { depth : null})
+    if(ghj && key === '4')   newFunction({ message : ghj });
+  }
+  , [ghj]);
+
+
+   function newFunction(response) {
+    console.log("R1");
+    console.dir(response,{ depth :null});
+    setOperation(true);
+    setOutput(response);
+  }
 
    const handleDelete = useCallback( async () => { 
     clearInterval(interval);
@@ -134,6 +144,7 @@ function AccordionOptions(props) {
 
     </PanelContext.Provider>
   );
+
 }
 
 export default AccordionOptions;
