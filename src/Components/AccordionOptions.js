@@ -7,6 +7,7 @@ import ConsoleOutput from './ConsoleOutput';
 import SchemaInput from './SchemaInput';
 import Spinner from 'react-bootstrap/Spinner';
 
+
 function AccordionOptions(props) {
 
   let key = props.eventKey;
@@ -50,26 +51,33 @@ function AccordionOptions(props) {
     const url_r = process.env.REACT_APP_BACKEND_HOST + '/services/'+ key +'?rate='+ max_interval + '&set=' + iter ;
     let response = {};
 
-    if(key !== '9')
     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
-    else
-    {
-     response =  await Axios.post(url_r, final_schema , { headers: { 'Content-Type': 'application/json' } }).catch((error) => {console.log("Error accessing backend"+error); });
-    //  console.dir(response.data.message.req4_res , { depth :null})
-    //  console.dir(response.data.message.matches , { depth :null})
-    }
-
+   
     if(key !== '9')
     {
         let response1 =  await Axios.get(cluster_url).catch((error) => {console.log("Error accessing backend"+error); });
         setError_url(response1.data.message);
     }
-      if(response !== undefined && response.data !== null)
+
+
+      if(response !== undefined )
     {  
-      setOperation(true);
-      setOutput(response.data);  
+         setOperation(true);
+         setOutput(response.data);
     }
    },[cluster_url, ctx.rate, ctx.iteration ,ctx.url, fileContent, key, schema, toggle]);
+
+
+
+   useEffect(() => 
+   {   let aichat = ctx.aichat;
+    // console.log("Hi ABC"+aichat);
+    if(aichat && key === '4') {
+   if (aichat.type  === "req4") setOperation(true); else setOperation(false);
+   setOutput({ message : aichat.msg });
+    }  
+  }, [ctx.aichat]);
+
 
    const handleDelete = useCallback( async () => { 
     clearInterval(interval);
@@ -134,6 +142,7 @@ function AccordionOptions(props) {
 
     </PanelContext.Provider>
   );
+
 }
 
 export default AccordionOptions;
