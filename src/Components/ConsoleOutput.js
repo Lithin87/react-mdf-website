@@ -4,7 +4,6 @@ import PanelContext from '../Contexts/panel-context';
 function ConsoleOutput({eventKey}) {
   const pctx = useContext(PanelContext);
   const message = pctx.output.message || '';
-  console.log("AI MSG" + message);
   const messagesEndRef = useRef(null);
   const [formattedMessages, setFormattedMessages] = useState([]);
   const indexCounter = useRef(0);
