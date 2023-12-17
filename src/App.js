@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import PanelContent from './Components/PanelContent';
 import MenuBar from './Components/MenuBar';
-// import WebSocketClient from './Components/WebSocketClient';
 
 
 import { useState } from 'react';
@@ -46,7 +45,6 @@ function App() {
                 <nav> <h1>Mimic Data Framework</h1></nav>
                 <MenuBar/>
                 <PanelContent/>
-                {/* <WebSocketClient /> */}
                 <footer> © 2023 Boots </footer>
             </div>
 
