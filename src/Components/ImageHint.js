@@ -89,11 +89,42 @@ const field5 ={
   }
 }
 
-const field9 = "pls give a  sample json message with context of a shopping with 20 fields with valid values and with mandatory key named account"
+
+const field9 = {
+  msg: `Pls give a sample JSON message with the following features:
+  
+  - No nesting
+  - Context of shopping with 10 fields
+  - With meaningful values
+  - With mandatory keys named account and floor`,
+  code: {}
+};
+
+
+const field10 = {
+  msg: "Replace all values with number type to string in below JSON message \n",
+  code: {
+    name: "lithin",
+    company: "UST",
+    age: "23",
+    account: "BOOTS"
+  }
+};
+
+
+const field11 = { 
+  msg : "can you add 10 more fields to below sample json message \n" ,
+  code : {
+  "name": "lithin",
+  "company": "UST",
+  "age": "23",
+  "account": "BOOTS"
+} };
+
 
 function ImageHint({ htmlFor }) {
 
-   const index = htmlFor.slice(-1)
+   let index = htmlFor.slice(-1)
    const pctx = useContext(PanelContext);
 
 
@@ -107,20 +138,28 @@ function ImageHint({ htmlFor }) {
    help_map.set('7', 'Will delete all previous stored data');
    help_map.set('8', 'Deletes all the craeted connenctors. Use this to RESET');
    help_map.set('9', field9);
+   help_map.set('10', field10);
+   help_map.set('11', field11);
 
-   const handleClick = async () => {
-    pctx.setToggle(true);
+   const handleClick = async (type) => {
+    if(parseInt(type) > 9 ) index = type;
    const help = help_map.get(index);
-   const formattedJSON = index === '9' ? help : JSON.stringify(help, null, 2); 
+   let formattedJSON =  JSON.stringify(help, null, 2); 
+   if(index === '10' || index === '11' || index === '9' )
+   {
+    formattedJSON = help.msg +  ( (index !== '9') ?  JSON.stringify(help.code, null, 2) : '' ) ;
+   }
    pctx.setSchema(formattedJSON);
   };
 
  
-    return (
-      <>
-      <img src={help}  onClick={handleClick} className='tiny-image' alt=""></img>
-      </>
-    );
+  return (
+    <>
+      <img src={help} onClick={() => handleClick('9')} className='tiny-image' alt="" />
+      <img src={help} onClick={() => handleClick('10')} className='tiny-image' alt="" hidden={index !== '9'} />
+      <img src={help} onClick={() => handleClick('11')} className='tiny-image' alt="" hidden={index !== '9'} />
+    </>
+  );
   }
 
 export default ImageHint;

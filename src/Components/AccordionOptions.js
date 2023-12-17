@@ -58,28 +58,26 @@ function AccordionOptions(props) {
         let response1 =  await Axios.get(cluster_url).catch((error) => {console.log("Error accessing backend"+error); });
         setError_url(response1.data.message);
     }
-      if(response !== undefined && response.data !== null)
+
+
+      if(response !== undefined )
     {  
-      newFunction(response.data);  
+         setOperation(true);
+         setOutput(response.data);
     }
    },[cluster_url, ctx.rate, ctx.iteration ,ctx.url, fileContent, key, schema, toggle]);
 
-let ghj = ctx.aichat;
+
 
    useEffect(() => 
-   {   
-    // console.dir(ghj, { depth : null})
-    if(ghj && key === '4')   newFunction({ message : ghj });
-  }
-  , [ghj]);
+   {   let aichat = ctx.aichat;
+    // console.log("Hi ABC"+aichat);
+    if(aichat && key === '4') {
+   if (aichat.type  === "req4") setOperation(true); else setOperation(false);
+   setOutput({ message : aichat.msg });
+    }  
+  }, [ctx.aichat]);
 
-
-   function newFunction(response) {
-    console.log("R1");
-    console.dir(response,{ depth :null});
-    setOperation(true);
-    setOutput(response);
-  }
 
    const handleDelete = useCallback( async () => { 
     clearInterval(interval);
