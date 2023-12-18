@@ -1,7 +1,5 @@
-import { useState, useContext, useEffect  } from 'react';
 import AccordionOptions from './AccordionOptions';
-import io from 'socket.io-client';
-import AppContext from '../Contexts/app-context';
+import WebSocketClient from './WebSocketClient';
 
 function Panel(props) {
     return (
@@ -15,33 +13,9 @@ function Panel(props) {
 
 
 function PanelContent(props) {
-    const ctx = useContext(AppContext);
-
-    // const [receivedMessage, setReceivedMessage] = useState('');
-
-    useEffect(() => {
-        const socketInstance = io(process.env.REACT_APP_BACKEND_HOST); 
-    
-        socketInstance.on('connect', () => {
-          console.log('Connected to WebSocket server');
-        });
-    
-        socketInstance.on('Server', (data) => {
-          console.log('Received message from server:', data);
-          ctx.setAichat(data);
-        });
-    
-        return () => {
-          if (socketInstance) {
-            socketInstance.disconnect();
-            console.log('Disconnected from WebSocket server');
-          }
-        };
-      }, []); 
-
 
     return (
-        <>
+        <>  <WebSocketClient/>
             <Panel header="GENERATE DATA">
                 <AccordionOptions  eventKey="4" >Generate from JSON</AccordionOptions>
             </Panel>

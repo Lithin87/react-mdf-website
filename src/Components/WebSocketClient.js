@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import io from 'socket.io-client';
+import AppContext from '../Contexts/app-context';
+
 
 const WebSocketClient = () => {
-  const [socket, setSocket] = useState(null);
-  const [message, setMessage] = useState('');
-  const [receivedMessage, setReceivedMessage] = useState('');
+  const ctx = useContext(AppContext);
 
   useEffect(() => {
     const socketInstance = io(process.env.REACT_APP_BACKEND_HOST); 
-    setSocket(socketInstance);
 
     socketInstance.on('connect', () => {
       console.log('Connected to WebSocket server');
@@ -16,7 +15,7 @@ const WebSocketClient = () => {
 
     socketInstance.on('Server', (data) => {
       console.log('Received message from server:', data);
-      setReceivedMessage(data.message);
+      ctx.setAichat(data);
     });
 
     return () => {
@@ -27,24 +26,8 @@ const WebSocketClient = () => {
     };
   }, []); 
 
-  const sendMessage = () => {
-    if (socket && message.trim() !== '') {
-      socket.emit('Client', { message }, (r) => setReceivedMessage("Received Message"));
-    }
-  };
-
   return (
-    <div>
-      <h1>WebSocket Client</h1>
-      <input
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Type a message"
-      />
-      <button onClick={sendMessage}>Send Message</button>
-      <p>Received from server: {receivedMessage}</p>
-    </div>
+    <></>
   );
 };
 
